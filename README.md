@@ -2,7 +2,7 @@
 
 Form that validates data and stores it in MongoDB.
 
-## Specifikace
+## Specifications
 
 - Frontend: ReactJS, TypeScript
 - Backend: ExpressJS, TypeScript, Mongoose
@@ -18,7 +18,7 @@ Form that validates data and stores it in MongoDB.
   ```
 - Backend:
 
-  .env file with the following values is needed: ```DATABASE_URL``` a ```PORT```.
+  .env file with the following values is needed: ```DATABASE_URL```, ```PORT```.
   ```
   cd server
   npm i
