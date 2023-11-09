@@ -1,14 +1,14 @@
-# reas-projekt
+# expressjs form
 
-Formulář s několika kroky a validací údajů.
+Form that validates data and stores them in MongoDB.
 
 ## Specifikace
 
 - Frontend: ReactJS, TypeScript
 - Backend: ExpressJS, TypeScript, Mongoose
-- Databáze: MongoDB
+- Database: MongoDB
 
-## Jak projekt spustit:
+## How to run:
 
 - Frontend:
   ```
@@ -18,7 +18,7 @@ Formulář s několika kroky a validací údajů.
   ```
 - Backend:
 
-  Je potřeba vytvořit .env soubor s hodnotami: ```DATABASE_URL``` a ```PORT```.
+  .env file with the following values is needed: ```DATABASE_URL``` a ```PORT```.
   ```
   cd server
   npm i
