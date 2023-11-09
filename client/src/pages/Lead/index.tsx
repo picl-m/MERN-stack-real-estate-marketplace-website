@@ -72,7 +72,7 @@ export default function Lead() {
 
     if (validateForm(formattedData)) {
       try {
-        const res = await fetch("https://express-server.vercel.app/lead", {
+        const res = await fetch("https://express-form-server.vercel.app/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json"},
         body: JSON.stringify(formattedData),
