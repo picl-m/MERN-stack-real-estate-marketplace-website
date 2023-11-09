@@ -2,7 +2,7 @@
 
 Form that validates data and stores it in MongoDB.
 
-## Specifikace
+## Specifications
 
 - Frontend: ReactJS, TypeScript
 - Backend: ExpressJS, TypeScript, Mongoose
