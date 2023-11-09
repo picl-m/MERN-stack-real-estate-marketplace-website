@@ -1,6 +1,6 @@
 # expressjs form
 
-Form that validates data and stores them in MongoDB.
+Form that validates data and stores it in MongoDB.
 
 ## Specifikace
 
