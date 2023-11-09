@@ -6,7 +6,7 @@ export default function LeadList() {
 
     async function getLeads() {
         try {
-            const res = await fetch("https://reas-server.vercel.app/leads", {
+            const res = await fetch("https://express-server.vercel.app/leads", {
              method: "GET",
              headers: { "Content-Type": "application/json"},
             });
