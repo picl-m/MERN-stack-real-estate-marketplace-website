@@ -9,22 +9,22 @@ interface EstateTypeProps {
 export default function EstateTypeForm(props: EstateTypeProps) {
   const options = [
     {
-      title: "Byt",
+      title: "Apartment",
       value: "apartment"
     },
     {
-      title: "Dům",
+      title: "House",
       value: "house"
     },
     {
-      title: "Pozemek",
+      title: "Land",
       value: "land"
     }
   ]
 
   return (
     <>
-      <h1 className={styles.formTitle}>Vyberte typ nemovitosti:</h1>
+      <h1 className={styles.formTitle}>Choose the type of property:</h1>
       <div className={styles.optionButtonContainer}>
         {options.map(option => (
           <button

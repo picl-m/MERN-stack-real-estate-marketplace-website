@@ -39,27 +39,27 @@ export default function Lead() {
     
     if(! v.estateType) {
       isValid = false;
-      error = error + "Vyberte typ nemovitosti\n";
+      error = error + "Choose the type of property\n";
     }
     if(! v.region) {
       isValid = false;
-      error = error + "Vyberte kraj\n";
+      error = error + "Choose a region\n";
     }
     if(! v.district) {
       isValid = false;
-      error = error + "Vyberte okres\n";
+      error = error + "Choose a district\n";
     }
     if(! /^(.+){2,} (.+){2,}$/.test(v.fullName)) {
       isValid = false;
-      error = error + "Špatně zadané jméno a příjmení\n";
+      error = error + "Invalid name\n";
     }
     if(! /^\d{9}$/.test(v.phone)) {
       isValid = false;
-      error = error + "Špatně zadané telefoní číslo\n";
+      error = error + "Invalid phone number\n";
     }
     if(! /^(.+)@(.+){2,}\.(.+){2,}$/.test(v.email)) {
       isValid = false;
-      error = error + "Špatně zadaný email\n";
+      error = error + "Invalid email adress\n";
     }
 
     setErrorMessage(error);
@@ -124,13 +124,13 @@ export default function Lead() {
             { (errorMessage) ? <p className={styles.errorMessage}>{errorMessage}</p> : null }
             <div className={styles.buttonContainer}>
               {(currentStep < steps.length - 1)?
-                <button className={styles.continueButton} onClick={nextStep} >Pokračovat</button>
+                <button className={styles.continueButton} onClick={nextStep} >Next</button>
               :(currentStep === steps.length -1)?
-                <button className={styles.continueButton} onClick={() => submitForm()}>Odeslat</button>
+                <button className={styles.continueButton} onClick={() => submitForm()}>Send</button>
               :null}
 
               {(currentStep > 0)?
-                <button className={styles.returnButton} onClick={previousStep} >Zpět</button>
+                <button className={styles.returnButton} onClick={previousStep} >Previous</button>
               :null}
             </div>
           </div>

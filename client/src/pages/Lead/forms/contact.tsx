@@ -9,17 +9,17 @@ interface ContactFormProps {
 export default function ContactForm(props: ContactFormProps) {
   return (
     <>
-      <h1 className={styles.formTitle}>Zadejte vaše kontakty:</h1>
+      <h1 className={styles.formTitle}>Enter your contact information:</h1>
       <div className={styles.inputContainer}>
         <div className={styles.labelContainer}>
-          <label htmlFor="fullName">Celé jméno</label>
+          <label htmlFor="fullName">Full name</label>
           <input className={styles.input} id="fullName" placeholder="Jméno Příjmení"
             value={props.formData.fullName}
             onChange={(e) => props.updateFormData({ fullName: e.target.value })}
           />
         </div>
         <div className={styles.labelContainer}>
-          <label htmlFor="phone">Telefoní číslo</label>
+          <label htmlFor="phone">Phone number</label>
           <input className={styles.input} id="phone"
             value={"+420 " + props.formData.phone}
             onChange={(e) => props.updateFormData({ phone: e.target.value.slice(5) })}
