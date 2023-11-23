@@ -13,7 +13,7 @@ export default function ContactForm(props: ContactFormProps) {
       <div className={styles.inputContainer}>
         <div className={styles.labelContainer}>
           <label htmlFor="fullName">Full name</label>
-          <input className={styles.input} id="fullName" placeholder="Jméno Příjmení"
+          <input className={styles.input} id="fullName"
             value={props.formData.fullName}
             onChange={(e) => props.updateFormData({ fullName: e.target.value })}
           />

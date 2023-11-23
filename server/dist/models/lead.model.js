@@ -26,6 +26,7 @@ const leadSchema = new mongoose_1.default.Schema({
     fullName: {
         type: String,
         required: true,
+        maxlenght: 70,
         validate: {
             validator: function (v) {
                 return /^(.+){2,} (.+){2,}$/.test(v);
@@ -44,6 +45,7 @@ const leadSchema = new mongoose_1.default.Schema({
     email: {
         type: String,
         required: true,
+        maxlenght: 70,
         validate: {
             validator: function (v) {
                 return /^(.+)@(.+){2,}\.(.+){2,}$/.test(v);

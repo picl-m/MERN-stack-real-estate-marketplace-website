@@ -23,8 +23,10 @@ router.get("/leads", (req, res) => __awaiter(void 0, void 0, void 0, function* (
         return res.status(200).send(data);
     }
     catch (err) {
-        console.log("Error creating a lead: ", err);
-        return res.status(500);
+        let message = "Unknown error";
+        if (err instanceof Error)
+            message = err.message;
+        res.status(500).send("Error getting leads: " + message);
     }
 }));
 router.post("/lead", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -34,7 +36,9 @@ router.post("/lead", (req, res) => __awaiter(void 0, void 0, void 0, function* (
         res.status(201).send(result);
     }
     catch (err) {
-        console.log("Error creating a lead: ", err);
-        res.status(500).send("Server error");
+        let message = "Unknown error";
+        if (err instanceof Error)
+            message = err.message;
+        res.status(500).send("Error creating lead: " + message);
     }
 }));
