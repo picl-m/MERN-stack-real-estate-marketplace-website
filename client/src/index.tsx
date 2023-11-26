@@ -26,7 +26,7 @@ root.render(
           <Route path="search" element={<Search/>} />
           <Route path="chci-nabidku" element={<Lead/>} />
           <Route path="seznam" element={<LeadList/>} />
-          <Route path="*" element={<Navigate to="" />} />
+          {/*<Route path="*" element={<Navigate to="" />} />*/}
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
