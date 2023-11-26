@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSearchParams, Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import { Container, Toolbar, Menu, MenuItem, Typography, IconButton, Stack, Divider, ToggleButtonGroup, ToggleButton, Box, Button } from "@mui/material"
 import { KeyboardArrowDown } from "@mui/icons-material";
 
@@ -26,13 +26,15 @@ export interface SearchParams {
     max_price?: number;
 }
 
-export default function HomePage() {
+interface HomePageProps {
+    estateType: EstateType;
+}
+
+export default function HomePage(props: HomePageProps) {
     const [estateTypeAnchor, setEstateTypeAnchor] = useState<null | HTMLElement>(null);
     const estateTypeMenuOpen = Boolean(estateTypeAnchor);
 
-    const [currentSearchParams] = useSearchParams();
-    const estateType = currentSearchParams.get("estate_type") as EstateType ?? "apartments";
-    const displayEstateType = estateType.charAt(0).toUpperCase() + estateType.slice(1);
+    const displayEstateType = props.estateType.charAt(0).toUpperCase() + props.estateType.slice(1);
 
     const [dealType, setDealType] = useState<DealType>("sale");
     const [searchParams, setSearchParams] = useState<SearchParams>({ room_type: [], extras: [] });
@@ -43,13 +45,13 @@ export default function HomePage() {
 
     const getSearchURL = () => {
         let searchURL = new URLSearchParams([...Object.entries(searchParams)]);
-        searchURL.append("estate_type", estateType);
+        searchURL.append("estate_type", props.estateType);
         searchURL.append("deal_type", dealType);
-        return ("/results?" + searchURL);
+        return ("results?" + searchURL);
     }
 
     const getEstateForm = () => {
-        switch(estateType) {
+        switch(props.estateType) {
             case "houses":
                 return(
                     <HousesForm searchParams={searchParams} updateSearchParams={updateSearchParams}/>

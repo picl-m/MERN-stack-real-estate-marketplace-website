@@ -23,7 +23,7 @@ export default function HomePage() {
                         <Grid container justifyContent="center" spacing={2} sx={{ mt: 2 }}>
                             <Grid item width={{ xs: 115 ,sm: 150, lg: 220 }}>
                                 <Card>
-                                    <CardActionArea component={RouterLink} to="/search?estate_type=apartments">
+                                    <CardActionArea component={RouterLink} to="/search/apartments">
                                         <CardContent>
                                             <Stack spacing={1} alignItems="center">
                                                 <Apartment fontSize="large"/>
@@ -35,7 +35,7 @@ export default function HomePage() {
                             </Grid>
                             <Grid item width={{ xs: 115 ,sm: 150, lg: 220 }}>
                                 <Card>
-                                    <CardActionArea component={RouterLink} to="/search?estate_type=houses">
+                                    <CardActionArea component={RouterLink} to="/search/houses">
                                         <CardContent>
                                             <Stack spacing={1} alignItems="center">
                                                 <House fontSize="large"/>
@@ -47,7 +47,7 @@ export default function HomePage() {
                             </Grid>
                             <Grid item width={{ xs: 115 ,sm: 150, lg: 220 }}>
                                 <Card>
-                                    <CardActionArea component={RouterLink} to="/search?estate_type=land">
+                                    <CardActionArea component={RouterLink} to="/search/land">
                                         <CardContent>
                                             <Stack spacing={1} alignItems="center">
                                                 <Landscape fontSize="large"/>
