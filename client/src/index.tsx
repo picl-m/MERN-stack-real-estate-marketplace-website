@@ -26,13 +26,16 @@ root.render(
         <Routes>
           <Route path="" element={<HomePage />} />
           <Route path="search">
-            <Route path="houses" element={<Search estateType="houses"/>}>
+            <Route path="houses">
+              <Route index element={<Search estateType="houses"/>}/>
               <Route path="results" element={<SearchResults estateType="houses"/>} />
             </Route>
-            <Route path="apartments" element={<Search estateType="apartments"/>}>
+            <Route path="apartments">
+              <Route index element={<Search estateType="apartments"/>}/>
               <Route path="results" element={<SearchResults estateType="apartments"/>} />
             </Route>
-            <Route path="land" element={<Search estateType="land"/>}>
+            <Route path="land">
+              <Route index element={<Search estateType="land"/>}/>
               <Route path="results" element={<SearchResults estateType="land"/>} />
             </Route>
           </Route>

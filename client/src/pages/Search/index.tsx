@@ -44,7 +44,9 @@ export default function HomePage(props: HomePageProps) {
     }
 
     const getSearchURL = () => {
-        let searchURL = new URLSearchParams([...Object.entries(searchParams)]);
+        let searchURL = new URLSearchParams(Object.entries(searchParams).filter((value) => {
+            if (value[1] instanceof Array && !value[1].length) {return false} else {return true}
+        }));
         searchURL.append("estate_type", props.estateType);
         searchURL.append("deal_type", dealType);
         return ("results?" + searchURL);

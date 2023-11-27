@@ -17,6 +17,7 @@ export default function MultiCheckbox(props: MultiCheckboxProps) {
             <FormGroup
                 aria-label="type"
                 row
+                sx={{ mt: 1 }}
             >
                 {props.options.map(roomType => (
                     <FormControlLabel
