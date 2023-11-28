@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
-import { Container, Toolbar, Menu, MenuItem, Typography, IconButton, Stack, Divider, ToggleButtonGroup, ToggleButton, Box, Button } from "@mui/material"
+import { Container, Menu, MenuItem, Typography, IconButton, Stack, Divider, ToggleButtonGroup, ToggleButton, Box, Button } from "@mui/material"
 import { KeyboardArrowDown } from "@mui/icons-material";
-
-import NavBar from "../../components/NavBar";
-import Footer from "../../components/Footer";
 
 import ApartmentsForm from "./forms/apartments";
 import HousesForm from "./forms/houses";
 import LandForm from "./forms/land";
+import Layout from "../../components/Layout";
 
 export type EstateType = "houses" | "apartments" | "land";
 export type DealType = "sale" | "rent";
@@ -24,6 +22,10 @@ export interface SearchParams {
     extras: Extras[];
     min_price?: number;
     max_price?: number;
+    min_area?: number;
+    max_area?: number;
+    min_floor?: number;
+    max_floor?: number;
 }
 
 interface HomePageProps {
@@ -70,10 +72,8 @@ export default function HomePage(props: HomePageProps) {
     }
 
     return (
-        <>
-            <NavBar/>
-            <Container sx={{ p: 4 }} maxWidth="md">
-                <Toolbar/>
+        <Layout>
+            <Container sx={{ py: 4 }} maxWidth="md">
                 <Stack direction="row" alignItems="center" paddingBottom={1}>
                     <Typography variant="h4">
                         {displayEstateType}
@@ -96,19 +96,19 @@ export default function HomePage(props: HomePageProps) {
                         onClose={() => setEstateTypeAnchor(null)}
                     >
                         <MenuItem 
-                            {...{component: RouterLink, to: "/search?estate_type=houses"}}
+                            {...{component: RouterLink, to: "/search/houses"}}
                             onClick={() => setEstateTypeAnchor(null)}
                         >
                             Houses
                         </MenuItem>
                         <MenuItem 
-                            {...{component: RouterLink, to: "/search?estate_type=apartments"}}
+                            {...{component: RouterLink, to: "/search/apartments"}}
                             onClick={() => setEstateTypeAnchor(null)}
                         >
                             Apartments
                         </MenuItem>
                         <MenuItem 
-                            {...{component: RouterLink, to: "/search?estate_type=land"}}
+                            {...{component: RouterLink, to: "/search/land"}}
                             onClick={() => setEstateTypeAnchor(null)}
                         >
                             Land
@@ -138,7 +138,6 @@ export default function HomePage(props: HomePageProps) {
                     Search
                 </Button>
             </Container>
-            <Footer/>
-        </>
+        </Layout>
     )
 }

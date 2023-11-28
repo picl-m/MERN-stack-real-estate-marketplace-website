@@ -1,10 +1,11 @@
 import React from "react";
-import { Container, Typography } from "@mui/material";
+import { Container, Divider, Typography } from "@mui/material";
 
 export default function Footer() {
     return (
-        <Container component="footer">
-            <Typography>Footer</Typography>
+        <Container component="footer" sx={{ mt: 4 }}>
+            <Divider/>
+            <Typography paddingY={4}>Footer</Typography>
         </Container>
     )
 }

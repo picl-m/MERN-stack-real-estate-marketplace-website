@@ -1,8 +1,9 @@
 import React from "react";
-import { Container, FormControl, FormLabel, Stack, TextField } from "@mui/material";
+import { Container } from "@mui/material";
 import { SearchParams, roomTypes, RoomType, extras, Extras } from "../index";
 
 import MultiCheckbox from "../../../components/MultiCheckbox";
+import NumberRange from "../../../components/NumberRange";
 
 interface SearchFormProps {
     searchParams: SearchParams;
@@ -24,13 +25,27 @@ export default function ApartmentsForm(props: SearchFormProps) {
                 selected={props.searchParams.extras}
                 update={(value: Extras[]) => props.updateSearchParams({ extras: value })}
             />
-            <FormControl>
-                <FormLabel>Price</FormLabel>
-                <Stack direction="row" gap={1} marginTop={2}>
-                    <TextField label="Min" variant="outlined" size="small"/>
-                    <TextField label="Max" variant="outlined" size="small"/>
-                </Stack>
-            </FormControl>
+            <NumberRange
+                title="Price"
+                minValue={props.searchParams.min_price}
+                maxValue={props.searchParams.max_price}
+                minUpdate={(value: number) => props.updateSearchParams({ min_price: value })}
+                maxUpdate={(value: number) => props.updateSearchParams({ max_price: value })}
+            />
+            <NumberRange
+                title="Area"
+                minValue={props.searchParams.min_area}
+                maxValue={props.searchParams.max_area}
+                minUpdate={(value: number) => props.updateSearchParams({ min_area: value })}
+                maxUpdate={(value: number) => props.updateSearchParams({ max_area: value })}
+            />
+            <NumberRange
+                title="Floor"
+                minValue={props.searchParams.min_floor}
+                maxValue={props.searchParams.max_floor}
+                minUpdate={(value: number) => props.updateSearchParams({ min_floor: value })}
+                maxUpdate={(value: number) => props.updateSearchParams({ max_floor: value })}
+            />
         </Container>
     )
 }
