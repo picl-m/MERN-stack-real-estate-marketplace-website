@@ -1,7 +1,7 @@
 import { FormData } from "../index";
 import styles from "./form.module.css";
 
-import locations from "./locations.json";
+import locations from "../../../utils/locations.json";
 
 interface LocationFormProps {
     formData: FormData;

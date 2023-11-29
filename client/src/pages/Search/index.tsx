@@ -7,19 +7,30 @@ import ApartmentsForm from "./forms/apartments";
 import HousesForm from "./forms/houses";
 import LandForm from "./forms/land";
 import Layout from "../../components/Layout";
+import locations from "../../utils/locations.json";
 
 export type EstateType = "houses" | "apartments" | "land";
 export type DealType = "sale" | "rent";
 
-export const roomTypes = ["1+kt", "1+1", "2+kt", "2+1", "3+kk", "3+1", "4+kk", "4+1", "5+kk", "5+1"];
-export type RoomType = typeof roomTypes[number];
+export const apartmentTypes = ["1+kt", "1+1", "2+kt", "2+1", "3+kk", "3+1", "4+kk", "4+1", "5 and more"];
+export type ApartmentType = typeof apartmentTypes[number];
 
-export const extras = ["balcony", "parking", "garden", "basement", "garage", "lift"];
+export const houseTypes = ["1 room", "2 rooms", "3 rooms", "4 rooms", "5 rooms and more"];
+export type HouseType = typeof houseTypes[number];
+
+export const extras = ["balcony", "parking", "garden", "basement", "garage", "lift", "furnished"];
 export type Extras = typeof extras[number];
 
+export const buildingTypes = ["brick", "panel", "steel"];
+export type BuildingType = typeof buildingTypes[number];
+
 export interface SearchParams {
-    room_type: RoomType[];
+    apartment_type: ApartmentType[];
+    house_type: HouseType[];
     extras: Extras[];
+    building_type: BuildingType[];
+    region?: keyof typeof locations;
+    district?: string;
     min_price?: number;
     max_price?: number;
     min_area?: number;
@@ -28,30 +39,26 @@ export interface SearchParams {
     max_floor?: number;
 }
 
-interface HomePageProps {
+interface SearchProps {
     estateType: EstateType;
 }
 
-export default function HomePage(props: HomePageProps) {
+export default function Search(props: SearchProps) {
     const [estateTypeAnchor, setEstateTypeAnchor] = useState<null | HTMLElement>(null);
     const estateTypeMenuOpen = Boolean(estateTypeAnchor);
 
     const displayEstateType = props.estateType.charAt(0).toUpperCase() + props.estateType.slice(1);
 
     const [dealType, setDealType] = useState<DealType>("sale");
-    const [searchParams, setSearchParams] = useState<SearchParams>({ room_type: [], extras: [] });
+    const [searchParams, setSearchParams] = useState<SearchParams>({
+        apartment_type: [],
+        house_type: [],
+        extras: [],
+        building_type: []
+    });
 
     const updateSearchParams = (params: Partial<SearchParams>) => {
         setSearchParams({...searchParams, ...params});
-    }
-
-    const getSearchURL = () => {
-        let searchURL = new URLSearchParams(Object.entries(searchParams).filter((value) => {
-            if (value[1] instanceof Array && !value[1].length) {return false} else {return true}
-        }));
-        searchURL.append("estate_type", props.estateType);
-        searchURL.append("deal_type", dealType);
-        return ("results?" + searchURL);
     }
 
     const getEstateForm = () => {
@@ -69,6 +76,17 @@ export default function HomePage(props: HomePageProps) {
                     <LandForm searchParams={searchParams} updateSearchParams={updateSearchParams}/>
                 );
         }
+    }
+
+    const getSearchURL = () => {
+        let searchURL = new URLSearchParams(Object.entries(searchParams).filter((value) => {
+            if (value[1] instanceof Array && !value[1].length) return false
+            else if (value[1] === undefined) return false
+            else return true
+        }));
+        searchURL.append("estate_type", props.estateType);
+        searchURL.append("deal_type", dealType);
+        return ("results?" + searchURL);
     }
 
     return (

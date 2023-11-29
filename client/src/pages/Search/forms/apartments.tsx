@@ -1,9 +1,10 @@
 import React from "react";
 import { Container } from "@mui/material";
-import { SearchParams, roomTypes, RoomType, extras, Extras } from "../index";
+import { SearchParams, apartmentTypes, ApartmentType, extras, Extras, buildingTypes, BuildingType } from "../index";
 
 import MultiCheckbox from "../../../components/MultiCheckbox";
 import NumberRange from "../../../components/NumberRange";
+import LocationSelect from "../../../components/LocationSelect";
 
 interface SearchFormProps {
     searchParams: SearchParams;
@@ -15,15 +16,21 @@ export default function ApartmentsForm(props: SearchFormProps) {
         <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
             <MultiCheckbox
                 title="Type"
-                options={roomTypes}
-                selected={props.searchParams.room_type}
-                update={(value: RoomType[]) => props.updateSearchParams({ room_type: value })}
+                options={apartmentTypes}
+                selected={props.searchParams.apartment_type}
+                update={(value: ApartmentType[]) => props.updateSearchParams({ apartment_type: value })}
             />
             <MultiCheckbox
                 title="Extras"
                 options={extras}
                 selected={props.searchParams.extras}
                 update={(value: Extras[]) => props.updateSearchParams({ extras: value })}
+            />
+            <MultiCheckbox
+                title="Building type"
+                options={buildingTypes}
+                selected={props.searchParams.building_type}
+                update={(value: BuildingType[]) => props.updateSearchParams({ building_type: value })}
             />
             <NumberRange
                 title="Price"
@@ -45,6 +52,13 @@ export default function ApartmentsForm(props: SearchFormProps) {
                 maxValue={props.searchParams.max_floor}
                 minUpdate={(value: number) => props.updateSearchParams({ min_floor: value })}
                 maxUpdate={(value: number) => props.updateSearchParams({ max_floor: value })}
+            />
+            <LocationSelect
+                region={props.searchParams.region}
+                updateRegion={(region) => (
+                    props.updateSearchParams({ region: region, district: undefined })
+                )}
+                updateDistrict={(district) => props.updateSearchParams({ district: district })}
             />
         </Container>
     )

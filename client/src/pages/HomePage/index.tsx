@@ -8,7 +8,7 @@ import Layout from "../../components/Layout";
 export default function HomePage() {
     return (
         <Layout>
-            <Box sx={{ backgroundColor: "#e5f3fe" }} paddingY={{ xs: 4, sm: 10 }} component="section">
+            <Box paddingY={{ xs: 4, sm: 10 }} component="section">
                 <Container sx={{ textAlign: "center" }}>
                     <Typography variant="h3" gutterBottom>
                         Discover new real estate offers

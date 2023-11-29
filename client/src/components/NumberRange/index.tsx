@@ -12,8 +12,8 @@ interface NumberRangeProps {
 export default function NumberRange(props: NumberRangeProps) {
     return (
         <FormControl component="fieldset" fullWidth>
-            <FormLabel component="legend">{props.title}</FormLabel>
-            <Stack direction="row" gap={1} marginTop={2}>
+            <FormLabel component="legend" sx={{ mb: 2 }}>{props.title}</FormLabel>
+            <Stack direction="row" gap={1}>
                     <TextField
                         label="Min"
                         variant="outlined"

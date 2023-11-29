@@ -1,24 +1,18 @@
 import React from "react";
-import { Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel } from "@mui/material"
-
-import { RoomType } from "../../pages/Search";
+import { Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel } from "@mui/material";
 
 interface MultiCheckboxProps {
     title: string;
-    options: RoomType[];
-    selected: RoomType[];
-    update: (value: RoomType[]) => void;
+    options: string[]
+    selected: string[];
+    update: (value: string[]) => void;
 }
 
 export default function MultiCheckbox(props: MultiCheckboxProps) {
     return (
         <FormControl component="fieldset" fullWidth>
-            <FormLabel component="legend">{props.title}</FormLabel>
-            <FormGroup
-                aria-label="type"
-                row
-                sx={{ mt: 1 }}
-            >
+            <FormLabel component="legend" sx={{ mb: 2 }}>{props.title}</FormLabel>
+            <FormGroup aria-label="type" row>
                 {props.options.map(roomType => (
                     <FormControlLabel
                         key={roomType}

@@ -12,7 +12,9 @@ import Error from "./pages/Error/index";
 //import LeadList from "./pages/LeadList/index";
 
 const theme = createTheme({
-
+  palette: {
+    mode: "dark",
+  },
 })
 
 const root = ReactDOM.createRoot(
