@@ -2,7 +2,7 @@ import React from "react";
 import { Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel } from "@mui/material";
 
 interface MultiCheckboxProps {
-    title: string;
+    title?: string;
     options: string[]
     selected: string[];
     update: (value: string[]) => void;

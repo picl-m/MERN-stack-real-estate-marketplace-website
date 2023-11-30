@@ -40,19 +40,14 @@ export default function HousesForm(props: SearchFormProps) {
                 minUpdate={(value: number) => props.updateSearchParams({ min_area: value })}
                 maxUpdate={(value: number) => props.updateSearchParams({ max_area: value })}
             />
-            <NumberRange
-                title="Floor"
-                minValue={props.searchParams.min_floor}
-                maxValue={props.searchParams.max_floor}
-                minUpdate={(value: number) => props.updateSearchParams({ min_floor: value })}
-                maxUpdate={(value: number) => props.updateSearchParams({ max_floor: value })}
-            />
             <LocationSelect
+                checkbox
                 region={props.searchParams.region}
+                district={props.searchParams.districts}
                 updateRegion={(region) => (
-                    props.updateSearchParams({ region: region, district: undefined })
+                    props.updateSearchParams({ region: region, districts: [] })
                 )}
-                updateDistrict={(district) => props.updateSearchParams({ district: district })}
+                updateDistrict={(districts) => props.updateSearchParams({ districts: districts })}
             />
         </Container>
     )

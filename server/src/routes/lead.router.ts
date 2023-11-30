@@ -1,10 +1,10 @@
 import express, { Request, Response } from "express";
 const router = express.Router();
-import { Lead } from "../models/lead.model";
+import { Estate } from "../models/lead.model";
 
-router.get("/leads", async (req: Request, res: Response) => {
+router.post("/search", async (req: Request, res: Response) => {
     try {
-        const data = await Lead.find();
+        const data = await Estate.find();
         return res.status(200).send(data);
     } catch (err) {
         let message = "Unknown error";
@@ -14,9 +14,9 @@ router.get("/leads", async (req: Request, res: Response) => {
 });
 
 router.post("/lead", async (req: Request, res: Response) => {
-    const reqLead = new Lead(req.body);
+    const reqEstate = new Estate(req.body);
     try {
-        const result = await reqLead.save();
+        const result = await reqEstate.save();
         res.status(201).send(result);
     } catch (err) {
         let message = "Unknown error";

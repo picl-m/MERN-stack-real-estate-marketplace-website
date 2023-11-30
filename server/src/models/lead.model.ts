@@ -10,7 +10,7 @@ regions.forEach((region) => {
     })
 })
 
-const leadSchema = new mongoose.Schema({
+const estateSchema = new mongoose.Schema({
     estateType: {
         type: String,
         required: true,
@@ -83,6 +83,6 @@ const leadSchema = new mongoose.Schema({
     }
 });
 
-const Lead = mongoose.model("Lead", leadSchema);
+const Estate = mongoose.model("Estate", estateSchema);
 
-export { Lead };
+export { Estate };

@@ -1,5 +1,5 @@
+import React, { useEffect, useState } from "react";
 import { Container, Typography } from "@mui/material";
-import React from "react";
 import { useSearchParams } from "react-router-dom";
 
 import { EstateType } from "../Search";
@@ -11,17 +11,36 @@ interface HomePageProps {
 
 export default function SearchResults(props: HomePageProps) {
     const [currentSearchParams] = useSearchParams();
-    let params: string[] = [];
-    currentSearchParams.forEach((value) => {
-        params.push(value);
-    })
+    const [results, setResults] = useState();
+    
+    const getResults = async () => {
+        try {
+            const res = await fetch("https://express-form-server.vercel.app/search", {
+                method: "POST",
+                headers: { "Content-Type": "application/json"},
+                body: JSON.stringify({}),
+            });
+            const data = await res.json();
+            if (res.status === 200) {
+                setResults(data);
+            } else {
+                console.log("Server error: " + data);
+            }
+        } catch (err) {
+            let message = "Unknown error";
+            if (err instanceof Error) message = err.message;
+            console.log("Error getting search results: " + message);
+        }
+    }
+
+    useEffect(() => {
+        getResults();
+    }, [])
 
     return (
         <Layout>
             <Container>
-                {params.map((value) => (
-                    <Typography key={value}>{value}</Typography>
-                ))}
+                {results}
             </Container>
         </Layout>
     )

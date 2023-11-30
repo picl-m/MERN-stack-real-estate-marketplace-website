@@ -12,11 +12,14 @@ import locations from "../../utils/locations.json";
 export type EstateType = "houses" | "apartments" | "land";
 export type DealType = "sale" | "rent";
 
+export const houseTypes = ["1 room", "2 rooms", "3 rooms", "4 rooms", "5 rooms and more"];
+export type HouseType = typeof houseTypes[number];
+
 export const apartmentTypes = ["1+kt", "1+1", "2+kt", "2+1", "3+kk", "3+1", "4+kk", "4+1", "5 and more"];
 export type ApartmentType = typeof apartmentTypes[number];
 
-export const houseTypes = ["1 room", "2 rooms", "3 rooms", "4 rooms", "5 rooms and more"];
-export type HouseType = typeof houseTypes[number];
+export const landTypes = ["housing", "commercial", "field", "forest", "pond", "garden"];
+export type LandType = typeof landTypes[number];
 
 export const extras = ["balcony", "parking", "garden", "basement", "garage", "lift", "furnished"];
 export type Extras = typeof extras[number];
@@ -27,10 +30,11 @@ export type BuildingType = typeof buildingTypes[number];
 export interface SearchParams {
     apartment_type: ApartmentType[];
     house_type: HouseType[];
+    land_type: LandType[];
     extras: Extras[];
     building_type: BuildingType[];
     region?: keyof typeof locations;
-    district?: string;
+    districts: string[];
     min_price?: number;
     max_price?: number;
     min_area?: number;
@@ -53,8 +57,10 @@ export default function Search(props: SearchProps) {
     const [searchParams, setSearchParams] = useState<SearchParams>({
         apartment_type: [],
         house_type: [],
+        land_type: [],
         extras: [],
-        building_type: []
+        building_type: [],
+        districts: []
     });
 
     const updateSearchParams = (params: Partial<SearchParams>) => {
