@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 const router = express.Router();
-import { Estate } from "../models/lead.model";
+import { Estate } from "../models/estate.model";
 
 router.post("/search", async (req: Request, res: Response) => {
     try {
@@ -25,4 +25,4 @@ router.post("/lead", async (req: Request, res: Response) => {
     }
 });
 
-export { router as leadRouter };
+export { router as estateRouter };

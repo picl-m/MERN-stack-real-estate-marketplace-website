@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Typography } from "@mui/material";
+import { Container } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
 import { EstateType } from "../Search";
@@ -10,7 +10,7 @@ interface HomePageProps {
 }
 
 export default function SearchResults(props: HomePageProps) {
-    const [currentSearchParams] = useSearchParams();
+    //const [currentSearchParams] = useSearchParams();
     const [results, setResults] = useState();
     
     const getResults = async () => {
