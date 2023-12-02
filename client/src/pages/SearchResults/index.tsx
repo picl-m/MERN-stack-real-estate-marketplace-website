@@ -15,7 +15,7 @@ export default function SearchResults(props: HomePageProps) {
     
     const getResults = async () => {
         try {
-            const res = await fetch(process.env.REACT_APP_SERVER_URL + "/search", {
+            const res = await fetch(process.env.REACT_APP_SERVER_URL + "/search/" + props.estateType, {
                 method: "POST",
                 headers: { "Content-Type": "application/json"},
                 body: JSON.stringify(currentSearchParams),
@@ -35,6 +35,7 @@ export default function SearchResults(props: HomePageProps) {
 
     useEffect(() => {
         getResults();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

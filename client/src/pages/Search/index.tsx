@@ -21,8 +21,11 @@ export type ApartmentType = typeof apartmentTypes[number];
 export const landTypes = ["housing", "commercial", "field", "forest", "pond", "garden"];
 export type LandType = typeof landTypes[number];
 
-export const extras = ["balcony", "parking", "garden", "basement", "garage", "lift", "furnished"];
-export type Extras = typeof extras[number];
+export const houseExtras = ["balcony", "parking", "garden", "basement", "garage", "wooden","furnished"];
+export type HouseExtras = typeof houseExtras[number];
+
+export const apartmentExtras = ["balcony", "parking", "garage", "lift", "furnished"];
+export type ApartmentExtras = typeof apartmentExtras[number];
 
 export const buildingTypes = ["brick", "panel", "steel"];
 export type BuildingType = typeof buildingTypes[number];
@@ -31,7 +34,8 @@ export interface SearchParams {
     apartment_type: ApartmentType[];
     house_type: HouseType[];
     land_type: LandType[];
-    extras: Extras[];
+    house_extras: HouseExtras[];
+    apartment_extras: ApartmentExtras[];
     building_type: BuildingType[];
     region?: keyof typeof locations;
     districts: string[];
@@ -58,7 +62,8 @@ export default function Search(props: SearchProps) {
         apartment_type: [],
         house_type: [],
         land_type: [],
-        extras: [],
+        house_extras: [],
+        apartment_extras: [],
         building_type: [],
         districts: []
     });

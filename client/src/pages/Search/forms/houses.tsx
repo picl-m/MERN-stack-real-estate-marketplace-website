@@ -1,6 +1,6 @@
 import React from "react";
 import { Container } from "@mui/material";
-import { SearchParams, houseTypes, HouseType, extras, Extras } from "../index";
+import { SearchParams, houseTypes, HouseType, houseExtras, HouseExtras } from "../index";
 
 import MultiCheckbox from "../../../components/MultiCheckbox";
 import LocationSelect from "../../../components/LocationSelect";
@@ -22,9 +22,9 @@ export default function HousesForm(props: SearchFormProps) {
             />
             <MultiCheckbox
                 title="Extras"
-                options={extras}
-                selected={props.searchParams.extras}
-                update={(value: Extras[]) => props.updateSearchParams({ extras: value })}
+                options={houseExtras}
+                selected={props.searchParams.house_extras}
+                update={(value: HouseExtras[]) => props.updateSearchParams({ house_extras: value })}
             />
             <NumberRange
                 title="Price"

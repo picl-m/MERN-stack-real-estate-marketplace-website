@@ -9,6 +9,7 @@ import Search from "./pages/Search/index";
 import SearchResults from "./pages/SearchResults/index";
 import Error from "./pages/Error/index";
 import Create from "./pages/Create/index";
+import CreateForm from "./pages/CreateForm";
 
 const theme = createTheme({
   palette: {
@@ -42,6 +43,9 @@ root.render(
           </Route>
           <Route path="create">
             <Route index element={<Create/>}/>
+            <Route path="house" element={<CreateForm estateType="house"/>}/>
+            <Route path="apartment" element={<CreateForm estateType="apartment"/>}/>
+            <Route path="land" element={<CreateForm estateType="land"/>}/>
           </Route>
           <Route path="*" element={<Error/>} />
         </Routes>

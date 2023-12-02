@@ -10,15 +10,32 @@ regions.forEach((region) => {
     })
 })
 
-const estateSchema = new mongoose.Schema({
-    estateType: {
+const houseSchema = new mongoose.Schema({
+    type: {
         type: String,
         required: true,
         validate: {
             validator: function(v: string) {
-                return /^(apartment|house|land)$/.test(v);
+                return /^(1 room|2 rooms|3 rooms|4 rooms|5 rooms and more)$/.test(v);
             }
-        }
+        },
+    },
+    extras: [{
+        type: String,
+        required: true,
+        validate: {
+            validator: function(v: string) {
+                return /^(balcony|parking|garden|basement|garage|wooden|furnished)$/.test(v);
+            }
+        },
+    }],
+    price: {
+        type: Number,
+        required: true,
+    },
+    area: {
+        type: Number,
+        required: true,
     },
     region: {
         type: String,
@@ -83,6 +100,6 @@ const estateSchema = new mongoose.Schema({
     },
 });
 
-const Estate = mongoose.model("Estate", estateSchema);
+const House = mongoose.model("House", houseSchema);
 
-export { Estate };
+export { House };

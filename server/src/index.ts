@@ -2,7 +2,8 @@ require("dotenv").config();
 if (process.env.DATABASE_URL == undefined) throw new Error("DATABASE_URL is not set");
 
 import express from "express";
-import { estateRouter } from "./routes/estate.router";
+import { searchRouter } from "./routes/search.router";
+import { createRouter } from "./routes/create.router";
 import mongoose, { MongooseError } from "mongoose";
 import cors from "cors";
 
@@ -17,6 +18,7 @@ db.once("open", () => console.log("Connected to database"));
 
 app.use(express.json());
 app.use(cors());
-app.use(estateRouter);
+app.use("/search" ,searchRouter);
+app.use("/create" ,createRouter);
 
 app.listen(port, () => {console.log("Server started on port " + port)});
