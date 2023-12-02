@@ -8,7 +8,7 @@ require("dotenv").config();
 if (process.env.DATABASE_URL == undefined)
     throw new Error("DATABASE_URL is not set");
 const express_1 = __importDefault(require("express"));
-const lead_router_1 = require("./routes/lead.router");
+const estate_router_1 = require("./routes/estate.router");
 const mongoose_1 = __importDefault(require("mongoose"));
 const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
@@ -19,5 +19,5 @@ db.on("error", (error) => console.log(error));
 db.once("open", () => console.log("Connected to database"));
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
-app.use(lead_router_1.leadRouter);
+app.use(estate_router_1.estateRouter);
 app.listen(port, () => { console.log("Server started on port " + port); });

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 
 import { EstateType } from "../Search";
@@ -10,15 +10,15 @@ interface HomePageProps {
 }
 
 export default function SearchResults(props: HomePageProps) {
-    //const [currentSearchParams] = useSearchParams();
-    const [results, setResults] = useState();
+    const [currentSearchParams] = useSearchParams();
+    const [results, setResults] = useState([]);
     
     const getResults = async () => {
         try {
-            const res = await fetch("https://express-form-server.vercel.app/search", {
+            const res = await fetch(process.env.REACT_APP_SERVER_URL + "/search", {
                 method: "POST",
                 headers: { "Content-Type": "application/json"},
-                body: JSON.stringify({}),
+                body: JSON.stringify(currentSearchParams),
             });
             const data = await res.json();
             if (res.status === 200) {
@@ -40,7 +40,9 @@ export default function SearchResults(props: HomePageProps) {
     return (
         <Layout>
             <Container>
-                {results}
+                {results.map((result, i) => (
+                    <Typography key={i} paragraph>{JSON.stringify(result)}</Typography>
+                ))}
             </Container>
         </Layout>
     )

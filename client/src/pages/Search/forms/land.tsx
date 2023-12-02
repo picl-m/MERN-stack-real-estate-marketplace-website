@@ -34,6 +34,7 @@ export default function LandForm(props: SearchFormProps) {
                 maxUpdate={(value: number) => props.updateSearchParams({ max_area: value })}
             />
             <LocationSelect
+                label
                 checkbox
                 region={props.searchParams.region}
                 district={props.searchParams.districts}

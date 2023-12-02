@@ -9,12 +9,13 @@ interface LocationSelectProps {
     updateRegion: (region: keyof typeof locations | undefined) => void;
     updateDistrict: (district: string[]) => void;
     checkbox?: boolean;
+    label?: boolean;
 }
 
 export default function LocationSelect(props: LocationSelectProps) {
     return (
         <FormControl>
-            <FormLabel sx={{ mb: 2 }}>Location</FormLabel>
+            {props.label?<FormLabel sx={{ mb: 2 }}>Location</FormLabel>:null}
             <Autocomplete
                 clearOnBlur
                 autoHighlight

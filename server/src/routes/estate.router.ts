@@ -9,11 +9,11 @@ router.post("/search", async (req: Request, res: Response) => {
     } catch (err) {
         let message = "Unknown error";
         if (err instanceof Error) message = err.message;
-        res.status(500).send("Error getting leads: " + message);
+        res.status(500).send("Error getting search results: " + message);
     }
 });
 
-router.post("/lead", async (req: Request, res: Response) => {
+router.post("/create", async (req: Request, res: Response) => {
     const reqEstate = new Estate(req.body);
     try {
         const result = await reqEstate.save();

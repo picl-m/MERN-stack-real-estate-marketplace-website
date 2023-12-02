@@ -8,8 +8,7 @@ import HomePage from "./pages/HomePage/index";
 import Search from "./pages/Search/index";
 import SearchResults from "./pages/SearchResults/index";
 import Error from "./pages/Error/index";
-//import Lead from "./pages/Lead/index";
-//import LeadList from "./pages/LeadList/index";
+import Create from "./pages/Create/index";
 
 const theme = createTheme({
   palette: {
@@ -40,6 +39,9 @@ root.render(
               <Route index element={<Search estateType="land"/>}/>
               <Route path="results" element={<SearchResults estateType="land"/>} />
             </Route>
+          </Route>
+          <Route path="create">
+            <Route index element={<Create/>}/>
           </Route>
           <Route path="*" element={<Error/>} />
         </Routes>

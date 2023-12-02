@@ -41,6 +41,7 @@ export default function HousesForm(props: SearchFormProps) {
                 maxUpdate={(value: number) => props.updateSearchParams({ max_area: value })}
             />
             <LocationSelect
+                label
                 checkbox
                 region={props.searchParams.region}
                 district={props.searchParams.districts}
