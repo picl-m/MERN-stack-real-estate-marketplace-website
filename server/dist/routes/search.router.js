@@ -21,7 +21,7 @@ const apartment_model_1 = require("../models/apartment.model");
 const land_model_1 = require("../models/land.model");
 router.post("/houses", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield house_model_1.House.find();
+        const data = yield house_model_1.House.find(req.body).exec();
         return res.status(200).send(data);
     }
     catch (err) {
@@ -33,7 +33,7 @@ router.post("/houses", (req, res) => __awaiter(void 0, void 0, void 0, function*
 }));
 router.post("/apartments", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield apartment_model_1.Apartment.find();
+        const data = yield apartment_model_1.Apartment.find(req.body).exec();
         return res.status(200).send(data);
     }
     catch (err) {
@@ -45,7 +45,7 @@ router.post("/apartments", (req, res) => __awaiter(void 0, void 0, void 0, funct
 }));
 router.post("/land", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield land_model_1.Land.find();
+        const data = yield land_model_1.Land.find(req.body).exec();
         return res.status(200).send(data);
     }
     catch (err) {

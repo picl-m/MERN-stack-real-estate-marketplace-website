@@ -1,18 +1,29 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import locations from "../../utils/locations.json";
-import LocationForm from "./forms/location";
-import ContactForm from "./forms/contact";
-import Layout from "../../components/Layout";
 import { Alert, AlertTitle, Box, Button, CircularProgress, Container, MobileStepper, Paper, Typography } from "@mui/material";
 
+import locations from "../../utils/locations.json";
+
+import LocationForm from "./forms/location";
+import ContactForm from "./forms/contact";
+import PriceForm from "./forms/price";
+import CategoryForm from "./forms/category";
+
+import Layout from "../../components/Layout";
+
 export interface FormData {
-  estateType: string;
-  fullName: string;
-  phone: string;
-  email: string;
-  region: keyof typeof locations | undefined;
-  district: string;
+  deal?: string;
+  type?: string;
+  extras: string[];
+  building_type?: string;
+  price?: number;
+  area?: number;
+  floor?: number;
+  full_name?: string;
+  phone?: string;
+  email?: string;
+  region?: keyof typeof locations;
+  district?: string;
 }
 
 interface CreateFormProps {
@@ -25,12 +36,8 @@ export default function CreateForm(props: CreateFormProps) {
   const [loading, setLoading] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<FormData>({
-    estateType: "",
-    fullName: "",
-    phone: "",
-    email: "",
-    region: undefined,
-    district: "",
+    deal: "sale",
+    extras: []
   });
 
   const updateFormData = (data: Partial<FormData>) => {
@@ -49,15 +56,15 @@ export default function CreateForm(props: CreateFormProps) {
       isValid = false;
       error.push("Choose a district\n");
     }
-    if(! /^(.+){2,} (.+){2,}$/.test(v.fullName)) {
+    if(v.full_name && ! /^(.+){2,} (.+){2,}$/.test(v.full_name)) {
       isValid = false;
       error.push("Invalid name\n");
     }
-    if(! /^\d{9}$/.test(v.phone)) {
+    if(v.phone && ! /^\d{9}$/.test(v.phone)) {
       isValid = false;
       error.push("Invalid phone number\n");
     }
-    if(! /^(.+)@(.+){2,}\.(.+){2,}$/.test(v.email)) {
+    if(v.email && ! /^(.+)@(.+){2,}\.(.+){2,}$/.test(v.email)) {
       isValid = false;
       error.push("Invalid email adress\n");
     }
@@ -68,35 +75,39 @@ export default function CreateForm(props: CreateFormProps) {
 
   const submitForm = async () => {
     setLoading(true);
-    let formattedData = {...formData, phone: formData.phone.replace(/\s/g, "")};
+    if (formData.phone) {
+      let formattedData = {...formData, phone: formData.phone.replace(/\s/g, "")};
+      console.log(formattedData);
 
-    if (validateForm(formattedData)) {
-      try {
-        const res = await fetch(process.env.REACT_APP_SERVER_URL + "/create/" + props.estateType, {
-          method: "POST",
-          headers: { "Content-Type": "application/json"},
-          body: JSON.stringify(formattedData),
-        });
-        if (res.status === 201) {
-          navigate("/");
-        } else {
-          const data = await res.json();
-          console.log("Server error: " + data);
+      if (validateForm(formattedData)) {
+        try {
+          const res = await fetch(process.env.REACT_APP_SERVER_URL + "/create/" + props.estateType, {
+            method: "POST",
+            headers: { "Content-Type": "application/json"},
+            body: JSON.stringify(formattedData),
+          });
+          if (res.status === 201) {
+            navigate("/");
+          } else {
+            const data = await res.json();
+            console.log("Server error: " + data);
+          }
+        } catch (err) {
+          let message = "Unknown error";
+          if (err instanceof Error) message = err.message;
+          console.log("Error sending form: " + message);
         }
-      } catch (err) {
-        let message = "Unknown error";
-        if (err instanceof Error) message = err.message;
-        console.log("Error sending form: " + message);
       }
     }
-
     setLoading(false);
   }
 
   const steps = [
-    <LocationForm formData={formData} updateFormData={updateFormData}/>, 
+    <PriceForm formData={formData} updateFormData={updateFormData}/>,
+    <LocationForm formData={formData} updateFormData={updateFormData}/>,
+    <CategoryForm formData={formData} updateFormData={updateFormData} estateType={props.estateType}/>,
     <ContactForm formData={formData} updateFormData={updateFormData}/>
-  ]
+  ];
 
   const nextStep = () => {
     if (currentStep >= steps.length - 1) {
@@ -118,6 +129,7 @@ export default function CreateForm(props: CreateFormProps) {
     <Layout>
       {(loading === false)?
         <Container maxWidth="md" sx={{ py: 4 }}>
+          <Typography variant="h3" paragraph>{"Create new " + props.estateType + " listing"}</Typography>
           <Paper sx={{ minHeight: "500px", display: "flex", flexDirection: "column", padding: 2 }}>
             <Box flexGrow={1} display="flex" flexDirection="column" gap={2}>
               {steps[currentStep]}

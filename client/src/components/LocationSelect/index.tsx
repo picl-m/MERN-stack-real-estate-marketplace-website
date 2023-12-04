@@ -43,7 +43,7 @@ export default function LocationSelect(props: LocationSelectProps) {
                     <RadioGroup
                         id="district-select"
                         row 
-                        value={props.district}
+                        value={props.district || ""}
                         sx={{ mt: 2 }}
                         onChange={(_, value) => {
                             if (value)

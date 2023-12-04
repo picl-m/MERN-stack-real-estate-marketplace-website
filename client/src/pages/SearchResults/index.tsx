@@ -18,7 +18,7 @@ export default function SearchResults(props: HomePageProps) {
             const res = await fetch(process.env.REACT_APP_SERVER_URL + "/search/" + props.estateType, {
                 method: "POST",
                 headers: { "Content-Type": "application/json"},
-                body: JSON.stringify(currentSearchParams),
+                body: JSON.stringify(Object.fromEntries(currentSearchParams)),
             });
             const data = await res.json();
             if (res.status === 200) {

@@ -6,7 +6,7 @@ import { Land } from "../models/land.model";
 
 router.post("/houses", async (req: Request, res: Response) => {
     try {
-        const data = await House.find();
+        const data = await House.find(req.body).exec();
         return res.status(200).send(data);
     } catch (err) {
         let message = "Unknown error";
@@ -17,7 +17,7 @@ router.post("/houses", async (req: Request, res: Response) => {
 
 router.post("/apartments", async (req: Request, res: Response) => {
     try {
-        const data = await Apartment.find();
+        const data = await Apartment.find(req.body).exec();
         return res.status(200).send(data);
     } catch (err) {
         let message = "Unknown error";
@@ -28,7 +28,7 @@ router.post("/apartments", async (req: Request, res: Response) => {
 
 router.post("/land", async (req: Request, res: Response) => {
     try {
-        const data = await Land.find();
+        const data = await Land.find(req.body).exec();
         return res.status(200).send(data);
     } catch (err) {
         let message = "Unknown error";

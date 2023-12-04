@@ -1,6 +1,6 @@
 import React from "react";
 import { Container } from "@mui/material";
-import { SearchParams, landTypes, LandType } from "../index";
+import { SearchParams, landTypes } from "../index";
 import NumberRange from "../../../components/NumberRange";
 import LocationSelect from "../../../components/LocationSelect";
 import MultiCheckbox from "../../../components/MultiCheckbox";
@@ -16,8 +16,8 @@ export default function LandForm(props: SearchFormProps) {
             <MultiCheckbox
                 title="Type"
                 options={landTypes}
-                selected={props.searchParams.land_type}
-                update={(value: LandType[]) => props.updateSearchParams({ land_type: value })}
+                selected={props.searchParams.type}
+                update={(value: string[]) => props.updateSearchParams({ type: value })}
             />
             <NumberRange
                 title="Price"

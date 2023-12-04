@@ -11,12 +11,21 @@ regions.forEach((region) => {
 })
 
 const apartmentSchema = new mongoose.Schema({
+    deal: {
+        type: String,
+        required: true,
+        validate: {
+            validator: function(v: string) {
+                return /^(sale|rent)$/.test(v);
+            }
+        },
+    },
     type: {
         type: String,
         required: true,
         validate: {
             validator: function(v: string) {
-                return /^(1+kt|1+1|2+kt|2+1|3+kk|3+1|4+kk|4+1|5 and more)$/.test(v);
+                return /^(1\+kt|1\+1|2\+kt|2\+1|3\+kk|3\+1|4\+kk|4\+1|5 and more)$/.test(v);
             }
         },
     },
@@ -82,7 +91,7 @@ const apartmentSchema = new mongoose.Schema({
             }
         }
     },
-    fullName: {
+    full_name: {
         type: String,
         required: true,
         maxlenght: 70,

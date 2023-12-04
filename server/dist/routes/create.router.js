@@ -23,38 +23,38 @@ router.post("/house", (req, res) => __awaiter(void 0, void 0, void 0, function* 
     const reqEstate = new house_model_1.House(req.body);
     try {
         const result = yield reqEstate.save();
-        res.status(201).send(result);
+        res.status(201).json(result);
     }
     catch (err) {
         let message = "Unknown error";
         if (err instanceof Error)
             message = err.message;
-        res.status(500).send("Error creating house: " + message);
+        res.status(500).json("Error creating house: " + message);
     }
 }));
 router.post("/apartment", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const reqEstate = new apartment_model_1.Apartment(req.body);
     try {
         const result = yield reqEstate.save();
-        res.status(201).send(result);
+        res.status(201).json(result);
     }
     catch (err) {
         let message = "Unknown error";
         if (err instanceof Error)
             message = err.message;
-        res.status(500).send("Error creating apartment: " + message);
+        res.status(500).json("Error creating apartment: " + message);
     }
 }));
 router.post("/land", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const reqEstate = new land_model_1.Land(req.body);
     try {
         const result = yield reqEstate.save();
-        res.status(201).send(result);
+        res.status(201).json(result);
     }
     catch (err) {
         let message = "Unknown error";
         if (err instanceof Error)
             message = err.message;
-        res.status(500).send("Error creating land: " + message);
+        res.status(500).json("Error creating land: " + message);
     }
 }));

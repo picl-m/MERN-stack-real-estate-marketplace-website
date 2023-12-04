@@ -14,6 +14,15 @@ regions.forEach((region) => {
     });
 });
 const landSchema = new mongoose_1.default.Schema({
+    deal: {
+        type: String,
+        required: true,
+        validate: {
+            validator: function (v) {
+                return /^(sale|rent)$/.test(v);
+            }
+        },
+    },
     type: {
         type: String,
         required: true,
@@ -63,7 +72,7 @@ const landSchema = new mongoose_1.default.Schema({
             }
         }
     },
-    fullName: {
+    full_name: {
         type: String,
         required: true,
         maxlenght: 70,

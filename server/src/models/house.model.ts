@@ -11,6 +11,15 @@ regions.forEach((region) => {
 })
 
 const houseSchema = new mongoose.Schema({
+    deal: {
+        type: String,
+        required: true,
+        validate: {
+            validator: function(v: string) {
+                return /^(sale|rent)$/.test(v);
+            }
+        },
+    },
     type: {
         type: String,
         required: true,
@@ -69,7 +78,7 @@ const houseSchema = new mongoose.Schema({
             }
         }
     },
-    fullName: {
+    full_name: {
         type: String,
         required: true,
         maxlenght: 70,

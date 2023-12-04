@@ -31,12 +31,9 @@ export const buildingTypes = ["brick", "panel", "steel"];
 export type BuildingType = typeof buildingTypes[number];
 
 export interface SearchParams {
-    apartment_type: ApartmentType[];
-    house_type: HouseType[];
-    land_type: LandType[];
-    house_extras: HouseExtras[];
-    apartment_extras: ApartmentExtras[];
-    building_type: BuildingType[];
+    type: string[];
+    extras: string[];
+    building_type: string[];
     region?: keyof typeof locations;
     districts: string[];
     min_price?: number;
@@ -59,11 +56,8 @@ export default function Search(props: SearchProps) {
 
     const [dealType, setDealType] = useState<DealType>("sale");
     const [searchParams, setSearchParams] = useState<SearchParams>({
-        apartment_type: [],
-        house_type: [],
-        land_type: [],
-        house_extras: [],
-        apartment_extras: [],
+        type: [],
+        extras: [],
         building_type: [],
         districts: []
     });
@@ -95,8 +89,7 @@ export default function Search(props: SearchProps) {
             else if (value[1] === undefined) return false
             else return true
         }));
-        searchURL.append("estate_type", props.estateType);
-        searchURL.append("deal_type", dealType);
+        searchURL.append("deal", dealType);
         return ("results?" + searchURL);
     }
 
