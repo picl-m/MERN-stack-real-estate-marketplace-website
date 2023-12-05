@@ -12,6 +12,8 @@ interface HomePageProps {
 export default function SearchResults(props: HomePageProps) {
     const [currentSearchParams] = useSearchParams();
     const [results, setResults] = useState([]);
+
+    console.log(currentSearchParams.get("extras"));
     
     const getResults = async () => {
         try {
