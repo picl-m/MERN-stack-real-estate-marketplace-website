@@ -1,11 +1,11 @@
 import express, { Request, Response } from "express";
 const router = express.Router();
-import { House } from "../models/house.model";
-import { Apartment } from "../models/apartment.model";
-import { Land } from "../models/land.model";
+import { HouseEstate } from "../models/house.model";
+import { ApartmentEstate } from "../models/apartment.model";
+import { LandEstate } from "../models/land.model";
 
 router.post("/house", async (req: Request, res: Response) => {
-    const reqEstate = new House(req.body);
+    const reqEstate = new HouseEstate(req.body);
     try {
         const result = await reqEstate.save();
         res.status(201).json(result);
@@ -17,7 +17,7 @@ router.post("/house", async (req: Request, res: Response) => {
 });
 
 router.post("/apartment", async (req: Request, res: Response) => {
-    const reqEstate = new Apartment(req.body);
+    const reqEstate = new ApartmentEstate(req.body);
     try {
         const result = await reqEstate.save();
         res.status(201).json(result);
@@ -29,7 +29,7 @@ router.post("/apartment", async (req: Request, res: Response) => {
 });
 
 router.post("/land", async (req: Request, res: Response) => {
-    const reqEstate = new Land(req.body);
+    const reqEstate = new LandEstate(req.body);
     try {
         const result = await reqEstate.save();
         res.status(201).json(result);

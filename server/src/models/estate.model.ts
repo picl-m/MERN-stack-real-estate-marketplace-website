@@ -1,24 +1,21 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Estate = void 0;
-const mongoose_1 = __importDefault(require("mongoose"));
-const locations_json_1 = __importDefault(require("./locations.json"));
-const regions = Object.keys(locations_json_1.default);
-let districts = [];
+import mongoose from "mongoose";
+
+import locations from "./locations.json";
+const regions = Object.keys(locations);
+let districts: Array<string> = [];
+
 regions.forEach((region) => {
-    locations_json_1.default[region].forEach((district) => {
+    locations[region as keyof typeof locations].forEach((district) => {
         districts.push(district);
-    });
-});
-const estateSchema = new mongoose_1.default.Schema({
+    })
+})
+
+const estateSchema = new mongoose.Schema({
     deal: {
         type: String,
         required: true,
         validate: {
-            validator: function (v) {
+            validator: function(v: string) {
                 return /^(sale|rent)$/.test(v);
             }
         },
@@ -35,10 +32,10 @@ const estateSchema = new mongoose_1.default.Schema({
         type: String,
         required: true,
         validate: {
-            validator: function (v) {
+            validator: function(v: string) {
                 let isValid = false;
-                for (let i = 0; i < regions.length; i++) {
-                    if (v === regions[i]) {
+                for(let i = 0; i < regions.length; i++) {
+                    if(v === regions[i]) {
                         isValid = true;
                         break;
                     }
@@ -51,10 +48,10 @@ const estateSchema = new mongoose_1.default.Schema({
         type: String,
         required: true,
         validate: {
-            validator: function (v) {
+            validator: function(v: string) {
                 let isValid = false;
-                for (let i = 0; i < districts.length; i++) {
-                    if (v === districts[i]) {
+                for(let i = 0; i < districts.length; i++) {
+                    if(v === districts[i]) {
                         isValid = true;
                         break;
                     }
@@ -72,7 +69,7 @@ const estateSchema = new mongoose_1.default.Schema({
         required: true,
         maxlenght: 70,
         validate: {
-            validator: function (v) {
+            validator: function(v: string) {
                 return /^(.+){2,} (.+){2,}$/.test(v);
             }
         }
@@ -81,7 +78,7 @@ const estateSchema = new mongoose_1.default.Schema({
         type: String,
         required: true,
         validate: {
-            validator: function (v) {
+            validator: function(v: string) {
                 return /^\d{9}$/.test(v);
             }
         }
@@ -91,11 +88,13 @@ const estateSchema = new mongoose_1.default.Schema({
         required: true,
         maxlenght: 70,
         validate: {
-            validator: function (v) {
+            validator: function(v: string) {
                 return /^(.+)@(.+){2,}\.(.+){2,}$/.test(v);
             }
         }
     },
 });
-const Estate = mongoose_1.default.model("Estate", estateSchema);
-exports.Estate = Estate;
+
+const Estate = mongoose.model("Estate", estateSchema);
+
+export { Estate };

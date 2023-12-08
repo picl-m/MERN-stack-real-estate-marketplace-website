@@ -8,6 +8,7 @@ import LocationForm from "./forms/location";
 import ContactForm from "./forms/contact";
 import PriceForm from "./forms/price";
 import CategoryForm from "./forms/category";
+import DescriptionForm from "./forms/description";
 
 import Layout from "../../components/Layout";
 
@@ -19,6 +20,7 @@ export interface FormData {
   price?: number;
   area?: number;
   floor?: number;
+  description?: string;
   full_name?: string;
   phone?: string;
   email?: string;
@@ -106,6 +108,7 @@ export default function CreateForm(props: CreateFormProps) {
     <PriceForm formData={formData} updateFormData={updateFormData}/>,
     <LocationForm formData={formData} updateFormData={updateFormData}/>,
     <CategoryForm formData={formData} updateFormData={updateFormData} estateType={props.estateType}/>,
+    <DescriptionForm formData={formData} updateFormData={updateFormData}/>,
     <ContactForm formData={formData} updateFormData={updateFormData}/>
   ];
 

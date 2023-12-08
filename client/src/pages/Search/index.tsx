@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { useNavigate, Link as RouterLink, createSearchParams } from "react-router-dom";
 import { Container, Menu, MenuItem, Typography, IconButton, Stack, Divider, ToggleButtonGroup, ToggleButton, Box, Button } from "@mui/material"
 import { KeyboardArrowDown } from "@mui/icons-material";
 
@@ -52,6 +52,8 @@ export default function Search(props: SearchProps) {
     const [estateTypeAnchor, setEstateTypeAnchor] = useState<null | HTMLElement>(null);
     const estateTypeMenuOpen = Boolean(estateTypeAnchor);
 
+    const navigate = useNavigate();
+
     const displayEstateType = props.estateType.charAt(0).toUpperCase() + props.estateType.slice(1);
 
     const [dealType, setDealType] = useState<DealType>("sale");
@@ -83,14 +85,17 @@ export default function Search(props: SearchProps) {
         }
     }
 
-    const getSearchURL = () => {
-        let searchURL = new URLSearchParams(Object.entries(searchParams).filter((value) => {
+    const goToResults = () => {
+        let resultsSearchParams = createSearchParams(Object.entries(searchParams).filter((value) => {
             if (value[1] instanceof Array && !value[1].length) return false
             else if (value[1] === undefined) return false
             else return true
         }));
-        searchURL.append("deal", dealType);
-        return ("results?" + searchURL);
+        resultsSearchParams.append("deal", dealType);
+        navigate({
+            pathname: "results",
+            search: `?${resultsSearchParams}`,
+        });
     }
 
     return (
@@ -154,8 +159,7 @@ export default function Search(props: SearchProps) {
                 <Button 
                     variant="contained"
                     size="large"
-                    component={RouterLink}
-                    to={getSearchURL()}
+                    onClick={goToResults}
                 >
                     Search
                 </Button>
