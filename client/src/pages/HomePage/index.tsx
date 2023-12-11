@@ -4,9 +4,10 @@ import { Container, Typography, Box, Grid, Card, CardActionArea, CardContent, Ca
 
 import { Apartment, House, Landscape } from "@mui/icons-material";
 import Layout from "../../components/Layout";
+import Carousel from "react-material-ui-carousel";
 
 export default function HomePage() {
-    const [results, setResults] = useState<Object[] | undefined>();
+    const [results, setResults] = useState<Object[][] | undefined>();
 
     const getResults = async () => {
         try {
@@ -16,7 +17,11 @@ export default function HomePage() {
             });
             const data = await res.json();
             if (res.status === 200) {
-                setResults(data);
+                let newResults = [];
+                for (let i = 0; i < data.length; i += 3) {
+                    newResults.push([data[i], data[i+1], data[i+2]])
+                }
+                setResults(newResults);
             } else {
                 console.log("Server error: " + data);
             }
@@ -86,38 +91,40 @@ export default function HomePage() {
                     New offers:
                 </Typography>
                 {(results && results.length > 0)?
-                    <Grid container spacing={2} justifyContent="center">
-                        {results.map((result: any, i) => (
-                            <Grid item key={i}>
-                                <Card sx={{ width: 350 }}>
-                                    <CardActionArea
-                                        href={"/listing?id=" + result._id}
-                                    >
-                                        <CardMedia
-                                            component="img"
-                                            height="200"
-                                            image="/placeholder.jpg"
-                                            alt="estate"
-                                        />
-                                        <CardContent>
-                                            <Typography gutterBottom variant="h6">
-                                                {result.__t + " for " + result.deal + ", " + result.type + ", " + result.area}
-                                                m<sup>2</sup>
-                                            </Typography>
-                                            <Typography variant="body1" color="text.secondary">
-                                                {result.region + ", " + result.district}
-                                            </Typography>
-                                            <Typography variant="h6">
-                                                {result.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") +
-                                                    (result.deal==="rent"?" CZK/month":" CZK")
-                                                }
-                                            </Typography>
-                                        </CardContent>
-                                    </CardActionArea>
-                                </Card>
-                            </Grid>
+                    <Carousel navButtonsAlwaysVisible animation="slide" duration={700}>
+                        {results.map((resultArray: Object[], i) => (
+                            <Stack direction="row" gap={2} key={i}>
+                                {resultArray.map((result: any) => (
+                                    <Card sx={{ width: 380 }} key={result._id}>
+                                        <CardActionArea
+                                            href={"/listing?id=" + result._id}
+                                        >
+                                            <CardMedia
+                                                component="img"
+                                                height="200"
+                                                image="/placeholder.jpg"
+                                                alt="estate"
+                                            />
+                                            <CardContent>
+                                                <Typography gutterBottom variant="h6">
+                                                    {result.__t + " for " + result.deal + ", " + result.type + ", " + result.area}
+                                                    m<sup>2</sup>
+                                                </Typography>
+                                                <Typography variant="body1" color="text.secondary">
+                                                    {result.region + ", " + result.district}
+                                                </Typography>
+                                                <Typography variant="h6">
+                                                    {result.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") +
+                                                        (result.deal==="rent"?" CZK/month":" CZK")
+                                                    }
+                                                </Typography>
+                                            </CardContent>
+                                        </CardActionArea>
+                                    </Card>
+                                ))}
+                            </Stack>
                         ))}
-                    </Grid>
+                    </Carousel>
                 :(results)?
                     <Typography variant="h4" marginTop={4} textAlign="center">No results found</Typography>
                 :

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Box, Card, CardActionArea, CardContent, CardMedia, CircularProgress, Container, Grid, Typography } from "@mui/material";
+import { Box, Card, CardActionArea, CardContent, CardMedia, CircularProgress, Container, Typography } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
 import { useSearchParams } from "react-router-dom";
 
-import { EstateType } from "../Search";
 import Layout from "../../components/Layout";
+
+import { EstateType } from "../../types/estate";
 
 interface HomePageProps {
     estateType: EstateType;
@@ -14,9 +16,9 @@ export default function SearchResults(props: HomePageProps) {
     const [results, setResults] = useState<Object[] | undefined>();
 
     const estateString = 
-        props.estateType.charAt(0).toUpperCase() +
-        props.estateType.substring(1, props.estateType.length - 1) +
-        " for " + currentSearchParams.get("deal");
+        props.estateType.charAt(0).toUpperCase()
+        + props.estateType.substring(1, (props.estateType !== "land" ? props.estateType.length - 1 : undefined))
+        + " for " + currentSearchParams.get("deal");
 
     const priceString = currentSearchParams.get("deal") === "rent" ? " CZK/month" : " CZK";
 
@@ -56,10 +58,11 @@ export default function SearchResults(props: HomePageProps) {
     return (
         <Layout>
             <Container>
+                <Typography mt={2} variant="h4">Search results:</Typography>
                 {(results && results.length > 0)?
-                    <Grid container spacing={2} justifyContent="center">
+                    <Grid container mt={1} spacing={2} columns={3}>
                         {results.map((result: any, i) => (
-                            <Grid item key={i}>
+                            <Grid key={i} width={380}>
                                 <Card>
                                     <CardActionArea
                                         href={"/listing?id=" + result._id}
@@ -71,8 +74,8 @@ export default function SearchResults(props: HomePageProps) {
                                             alt="estate"
                                         />
                                         <CardContent>
-                                            <Typography gutterBottom variant="h6">
-                                                {estateString + " " + result.type + " " + result.area}
+                                            <Typography gutterBottom variant="h6" noWrap>
+                                                {estateString + ", " + result.type + ", " + result.area.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")}
                                                 m<sup>2</sup>
                                             </Typography>
                                             <Typography variant="body1" color="text.secondary">

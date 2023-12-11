@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Alert, AlertTitle, Box, Button, CircularProgress, Container, MobileStepper, Paper, Typography } from "@mui/material";
 
-import locations from "../../utils/locations.json";
+import locations from "../../assets/locations.json";
 
 import LocationForm from "./forms/location";
 import ContactForm from "./forms/contact";

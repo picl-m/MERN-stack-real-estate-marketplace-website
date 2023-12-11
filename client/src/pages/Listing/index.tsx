@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { CircularProgress, Container, Divider, ImageList, ImageListItem, Paper, Table, TableBody, TableCell, TableContainer, TableRow, Typography, Box } from "@mui/material";
+import { CircularProgress, Container, Divider, ImageList, ImageListItem, Paper, Table, TableBody, TableCell, TableContainer, TableRow, Typography, Box, List, ListItem, Avatar, Stack, ListItemIcon, ListItemText } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { Email, Phone } from "@mui/icons-material";
 
 import Layout from "../../components/Layout";
 
@@ -42,7 +43,7 @@ export default function SearchResults() {
         specs.push({ name: "Type:", value: listing.type })
         specs.push({ name: "Area:", value: listing.area + "m2" })
 
-        if (listing.extras) {
+        if (listing.extras && listing.extras.length) {
             specs.push({ name: "Extras:", value: listing.extras.join(", ") })
         }
         if (listing.floor) {
@@ -57,7 +58,7 @@ export default function SearchResults() {
 
     return (
         <Layout>
-            <Container>
+            <Container maxWidth="md">
                 {listing?
                     <>
                         <Box mt={2}>
@@ -90,7 +91,7 @@ export default function SearchResults() {
                             (listing.deal === "rent" ? " CZK/month" : " CZK")}
                         </Typography>
                         <Divider sx={{ mb: 2 }}/>
-                        <Typography component="pre" paragraph>
+                        <Typography component="pre" paragraph minHeight={200}>
                             {listing.description}
                         </Typography>
                         <TableContainer component={Paper}>
@@ -108,12 +109,30 @@ export default function SearchResults() {
                                 </TableBody>
                             </Table>
                         </TableContainer>
-                        <Typography mt={2} variant="h5">Contacts:</Typography>
-                        <ul>
-                            <Typography component="li">Name: {listing.full_name}</Typography>
-                            <Typography component="li">Email: {listing.email}</Typography>
-                            <Typography component="li">Phone: {listing.phone}</Typography>
-                        </ul>
+                        <Typography mt={4} variant="h4" mb={2}>Contact the seller:</Typography>
+                        <Stack direction="row" gap={3}>
+                            <Avatar sx={{ width: 64, height: 64, mt: 1 }}/>
+                            <Box>
+                                <Typography variant="h6">{listing.full_name}</Typography>
+                                <List>
+                                    <ListItem disableGutters>
+                                        <ListItemIcon>
+                                            <Email/>
+                                        </ListItemIcon>
+                                        <ListItemText primary="Email" secondary={listing.email}/>
+                                    </ListItem>
+                                    <ListItem disableGutters>
+                                        <ListItemIcon>
+                                            <Phone/>
+                                        </ListItemIcon>
+                                        <ListItemText
+                                            primary="Phone"
+                                            secondary={"+420 " + listing.phone.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")}
+                                        />
+                                    </ListItem>
+                                </List>
+                            </Box>
+                        </Stack>
                     </>
                 :(listing === null)?
                     <Typography variant="h4" mt={2}>Couldn't find listing</Typography>

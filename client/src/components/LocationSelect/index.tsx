@@ -1,6 +1,6 @@
 import React from "react";
 import { Autocomplete, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField } from "@mui/material"
-import locations from "../../utils/locations.json";
+import locations from "../../assets/locations.json";
 import MultiCheckbox from "../MultiCheckbox";
 
 interface LocationSelectProps {
