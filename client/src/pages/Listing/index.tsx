@@ -46,7 +46,8 @@ export default function SearchResults() {
             specs.push({ name: "Building type:", value: listing.building_type })
         }
 
-        specs.push({ name: "Last updated on:", value: listing.updatedAt.toString() })
+        const date = new Date(listing.updatedAt);
+        specs.push({ name: "Last updated on:", value: `${date.getDate()}.${date.getMonth()+1}.${date.getFullYear()}` })
 
         return specs;
     }

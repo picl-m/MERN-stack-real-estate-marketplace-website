@@ -44,7 +44,8 @@ const createQuery = (queryParams: any) => {
 
 router.post("/houses", async (req: Request, res: Response) => {
     try {
-        const data = await HouseEstate.find(createQuery(req.body)).exec();
+        const offset = req.body.count * req.body.page;
+        const data = await HouseEstate.find(createQuery(req.body)).skip(offset).limit(req.body.count).exec();
         return res.status(200).json(data);
     } catch (err) {
         let message = "Unknown error";

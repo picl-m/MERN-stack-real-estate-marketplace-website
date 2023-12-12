@@ -15,11 +15,10 @@ interface LocationSelectProps {
 export default function LocationSelect(props: LocationSelectProps) {
     return (
         <FormControl>
-            {props.label?<FormLabel sx={{ mb: 2 }}>Location</FormLabel>:null}
+            {props.label ? <FormLabel sx={{ mb: 2 }}>Location</FormLabel> : null}
             <Autocomplete
                 clearOnBlur
                 autoHighlight
-                id="region-select"
                 options={Object.keys(locations)}
                 value={props.region || null}
                 renderInput={(params) => <TextField {...params} label="Region" />}
@@ -41,7 +40,6 @@ export default function LocationSelect(props: LocationSelectProps) {
                     />
                 :
                     <RadioGroup
-                        id="district-select"
                         row 
                         value={props.district || ""}
                         sx={{ mt: 2 }}

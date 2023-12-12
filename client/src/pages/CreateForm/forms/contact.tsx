@@ -11,6 +11,7 @@ export default function ContactForm(props: ContactFormProps) {
     <>
       <Typography variant="h4">Enter your contact information:</Typography>
       <Typography variant="h6" color="text.secondary" sx={{ mb: 2 }}>(Contact information is publicly visible)</Typography>
+      
       <TextField
         label="Full name"
         size="small"

@@ -11,6 +11,7 @@ import DescriptionForm from "./forms/description";
 import Layout from "../../components/Layout";
 import { createEstate } from "../../api/estate/create";
 import { Estate, EstateType } from "../../types/estate";
+import { validateEstate } from "../../utils/estateValidation";
 
 interface CreateFormProps {
   estateType: EstateType;
@@ -30,49 +31,25 @@ export default function CreateForm(props: CreateFormProps) {
     setFormData({...formData, ...data});
   }
 
-  const validateForm = (v: Partial<Estate>) => {
-    let isValid = true;
-    let error = [];
-    
-    if(! v.region) {
-      isValid = false;
-      error.push("Choose a region\n");
-    }
-    if(! v.district) {
-      isValid = false;
-      error.push("Choose a district\n");
-    }
-    if(v.full_name && ! /^(.+){2,} (.+){2,}$/.test(v.full_name)) {
-      isValid = false;
-      error.push("Invalid name\n");
-    }
-    if(v.phone && ! /^\d{9}$/.test(v.phone)) {
-      isValid = false;
-      error.push("Invalid phone number\n");
-    }
-    if(v.email && ! /^(.+)@(.+){2,}\.(.+){2,}$/.test(v.email)) {
-      isValid = false;
-      error.push("Invalid email adress\n");
-    }
-
-    setErrorMessage(error);
-    return (isValid);
-  }
-
-  const submitForm = async () => {
+  const submitForm = () => {
     setLoading(true);
-    if (formData.phone) {
-      let formattedData = {...formData, phone: formData.phone.replace(/\s/g, "")};
-      console.log(formattedData);
 
-      if (validateForm(formattedData)) {
-        createEstate(formattedData as Estate, props.estateType).then(success => {
-          if (success) {
-            navigate("/");
-          }
-        })
-      }
+    let formattedData: Partial<Estate> = {...formData};
+    if (formData.phone)
+      formattedData.phone = formData.phone.replace(/\s/g, "");
+
+    const [valid, error] = validateEstate(formattedData, props.estateType)
+
+    if (valid) {
+      createEstate(formattedData as Estate, props.estateType).then(success => {
+        if (success) {
+          navigate("/");
+        }
+      })
+    } else {
+      setErrorMessage(error);
     }
+    
     setLoading(false);
   }
 
@@ -127,7 +104,7 @@ export default function CreateForm(props: CreateFormProps) {
               nextButton={(currentStep < steps.length - 1)?
                   <Button variant="contained" onClick={nextStep} >Next</Button>
                 :(currentStep === steps.length -1)?
-                  <Button variant="contained" onClick={() => submitForm()}>Send</Button>
+                  <Button variant="contained" onClick={() => submitForm()}>Create</Button>
               :null}
               backButton={
                 <Button disabled={currentStep === 0} onClick={previousStep}>Previous</Button>

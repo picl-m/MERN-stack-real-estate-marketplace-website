@@ -10,6 +10,7 @@ export default function PriceForm(props: PriceFormProps) {
   return (
     <>
         <Typography variant="h4" sx={{ mb: 2 }}>Enter the price:</Typography>
+        
         <TextField
           label={props.formData.deal==="rent"?"Price per month in CZK":"Price in CZK"}
           value={props.formData.price || ""}

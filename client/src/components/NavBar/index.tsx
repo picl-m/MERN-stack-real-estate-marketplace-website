@@ -13,8 +13,7 @@ export default function NavBar() {
                     LOGO
                 </Link>
                 <Box flexGrow={1}/>
-                <Button variant="outlined">LOG IN</Button>
-                <Button variant="outlined" sx={{ ml: 1 }}>SIGN UP</Button>
+                <Button variant="outlined" component={RouterLink} to="/create">CREATE LISTING</Button>
             </Toolbar>
         </AppBar>
     )

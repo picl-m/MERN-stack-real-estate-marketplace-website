@@ -105,7 +105,7 @@ export default function HomePage() {
                                                 alt="estate"
                                             />
                                             <CardContent>
-                                                <Typography gutterBottom variant="h6">
+                                                <Typography gutterBottom variant="h6" noWrap>
                                                     {result.__t + " for " + result.deal + ", " + result.type + ", " + result.area}
                                                     m<sup>2</sup>
                                                 </Typography>

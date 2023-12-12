@@ -11,6 +11,7 @@ export default function LocationForm(props: LocationFormProps) {
   return (
     <>
       <Typography variant="h4" sx={{ mb: 2 }}>Location of property:</Typography>
+      
       <LocationSelect
         region={props.formData.region}
         district={props.formData.district}

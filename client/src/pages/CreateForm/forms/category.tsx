@@ -13,6 +13,7 @@ export default function CategoryForm(props: CategoryFormProps) {
   return (
     <>
         <Typography variant="h4" sx={{ mb: 2 }}>Pick categories:</Typography>
+        
         <TextField
           label="Area in m2"
           value={props.formData.area || ""}

@@ -57,7 +57,8 @@ const createQuery = (queryParams) => {
 };
 router.post("/houses", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield house_model_1.HouseEstate.find(createQuery(req.body)).exec();
+        const offset = req.body.count * req.body.page;
+        const data = yield house_model_1.HouseEstate.find(createQuery(req.body)).skip(offset).limit(req.body.count).exec();
         return res.status(200).json(data);
     }
     catch (err) {

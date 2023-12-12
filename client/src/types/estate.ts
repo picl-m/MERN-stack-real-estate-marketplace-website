@@ -35,11 +35,9 @@ export interface SearchParams {
     max_floor?: number;
 }
 
-export type EstateTypeName = "House" | "Apartment" | "Land";
-
 export interface Estate {
     _id: number;
-    __t: EstateTypeName;
+    __t: "House" | "Apartment" | "Land";
     updatedAt: Date;
     deal: DealType;
     type: HouseType | ApartmentType | LandType;
