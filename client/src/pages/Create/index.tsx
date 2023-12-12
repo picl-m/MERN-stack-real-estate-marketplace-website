@@ -4,48 +4,44 @@ import { Apartment, House, Landscape } from "@mui/icons-material";
 import { Link as RouterLink } from "react-router-dom";
 
 export default function Create() {
+    const linkCards = [
+        {
+            title: "Apartment",
+            url: "apartment",
+            icon: <Apartment fontSize="large"/>,
+        },
+        {
+            title: "House",
+            url: "house",
+            icon: <House fontSize="large"/>,
+        },
+        {
+            title: "Land",
+            url: "land",
+            icon: <Landscape fontSize="large"/>,
+        },
+    ]
+
     return (
         <Layout>
             <Container maxWidth="md" sx={{ py: 4 }}>
                 <Typography variant="h4">Create a new listing:</Typography>
                 <Grid container justifyContent="center" spacing={2} sx={{ mt: 2 }}>
-                        <Grid item width={{ xs: 115 ,sm: 150, lg: 220 }}>
+                    {linkCards.map(element => (
+                        <Grid item key={element.title} width={{ xs: 115 ,sm: 150, lg: 220 }}>
                             <Card>
-                                <CardActionArea component={RouterLink} to="apartment">
+                                <CardActionArea component={RouterLink} to={element.url}>
                                     <CardContent>
                                         <Stack spacing={1} alignItems="center">
-                                            <Apartment fontSize="large"/>
-                                            <Typography>Apartments</Typography>
+                                            {element.icon}
+                                            <Typography>{element.title}</Typography>
                                         </Stack>
                                     </CardContent>
                                 </CardActionArea>
                             </Card>
                         </Grid>
-                        <Grid item width={{ xs: 115 ,sm: 150, lg: 220 }}>
-                            <Card>
-                                <CardActionArea component={RouterLink} to="house">
-                                    <CardContent>
-                                        <Stack spacing={1} alignItems="center">
-                                            <House fontSize="large"/>
-                                            <Typography>Houses</Typography>
-                                        </Stack>
-                                    </CardContent>
-                                </CardActionArea>
-                            </Card>
-                        </Grid>
-                        <Grid item width={{ xs: 115 ,sm: 150, lg: 220 }}>
-                            <Card>
-                                <CardActionArea component={RouterLink} to="land">
-                                    <CardContent>
-                                        <Stack spacing={1} alignItems="center">
-                                            <Landscape fontSize="large"/>
-                                            <Typography>Land</Typography>
-                                        </Stack>
-                                    </CardContent>
-                                </CardActionArea>
-                            </Card>
-                        </Grid>
-                    </Grid>
+                    ))}
+                </Grid>
             </Container>
         </Layout>
     )

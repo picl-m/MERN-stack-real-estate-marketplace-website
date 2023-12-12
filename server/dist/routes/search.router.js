@@ -105,7 +105,7 @@ router.post("/listing", (req, res) => __awaiter(void 0, void 0, void 0, function
 }));
 router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield estate_model_1.Estate.find().limit(12);
+        const data = yield estate_model_1.Estate.find().limit(12).sort({ updatedAt: -1 });
         return res.status(200).json(data);
     }
     catch (err) {

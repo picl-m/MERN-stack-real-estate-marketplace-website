@@ -93,7 +93,7 @@ const estateSchema = new mongoose.Schema({
             }
         }
     },
-});
+}, { timestamps: true });
 
 const Estate = mongoose.model("Estate", estateSchema);
 

@@ -5,7 +5,9 @@ import { useSearchParams } from "react-router-dom";
 
 import Layout from "../../components/Layout";
 
-import { EstateType } from "../../types/estate";
+import { Estate, EstateType } from "../../types/estate";
+
+import { getResults } from "../../api/estate/search";
 
 interface HomePageProps {
     estateType: EstateType;
@@ -13,7 +15,7 @@ interface HomePageProps {
 
 export default function SearchResults(props: HomePageProps) {
     const [currentSearchParams] = useSearchParams();
-    const [results, setResults] = useState<Object[] | undefined>();
+    const [results, setResults] = useState<Estate[] | undefined>();
 
     const estateString = 
         props.estateType.charAt(0).toUpperCase()
@@ -22,7 +24,7 @@ export default function SearchResults(props: HomePageProps) {
 
     const priceString = currentSearchParams.get("deal") === "rent" ? " CZK/month" : " CZK";
 
-    const getResults = async () => {
+    useEffect(() => {
         let params: any = {};
         currentSearchParams.forEach((value, key) => {
             if (value.includes(",")) {
@@ -31,27 +33,9 @@ export default function SearchResults(props: HomePageProps) {
                 params[key] = value;
             }
         })
-        try {
-            const res = await fetch(process.env.REACT_APP_SERVER_URL + "/search/" + props.estateType, {
-                method: "POST",
-                headers: { "Content-Type": "application/json"},
-                body: JSON.stringify(params),
-            });
-            const data = await res.json();
-            if (res.status === 200) {
-                setResults(data);
-            } else {
-                console.log("Server error: " + data);
-            }
-        } catch (err) {
-            let message = "Unknown error";
-            if (err instanceof Error) message = err.message;
-            console.log("Error getting search results: " + message);
-        }
-    }
-
-    useEffect(() => {
-        getResults();
+        getResults(params, props.estateType).then(data => {
+            setResults(data);
+        });
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -60,8 +44,8 @@ export default function SearchResults(props: HomePageProps) {
             <Container>
                 <Typography mt={2} variant="h4">Search results:</Typography>
                 {(results && results.length > 0)?
-                    <Grid container mt={1} spacing={2} columns={3}>
-                        {results.map((result: any, i) => (
+                    <Grid container mt={1} spacing={2} columns={3} justifyContent="center">
+                        {results.map((result, i) => (
                             <Grid key={i} width={380}>
                                 <Card>
                                     <CardActionArea
@@ -75,7 +59,7 @@ export default function SearchResults(props: HomePageProps) {
                                         />
                                         <CardContent>
                                             <Typography gutterBottom variant="h6" noWrap>
-                                                {estateString + ", " + result.type + ", " + result.area.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")}
+                                                {`${estateString},  ${result.type}, ${result.area.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")}`}
                                                 m<sup>2</sup>
                                             </Typography>
                                             <Typography variant="body1" color="text.secondary">

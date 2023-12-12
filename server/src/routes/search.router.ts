@@ -88,7 +88,7 @@ router.post("/listing", async (req: Request, res: Response) => {
 
 router.get("/", async (req: Request, res: Response) => {
     try {
-        const data = await Estate.find().limit(12);
+        const data = await Estate.find().limit(12).sort({ updatedAt: -1 });
         return res.status(200).json(data);
     } catch (err) {
         let message = "Unknown error";

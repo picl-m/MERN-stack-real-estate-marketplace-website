@@ -1,10 +1,10 @@
-import { FormData } from "../index";
 import { Typography } from "@mui/material";
 import LocationSelect from "../../../components/LocationSelect";
+import { Estate } from "../../../types/estate";
 
 interface LocationFormProps {
-    formData: FormData;
-    updateFormData: (data: Partial<FormData>) => void;
+  formData: Partial<Estate>;
+  updateFormData: (data: Partial<Estate>) => void;
 }
 
 export default function LocationForm(props: LocationFormProps) {

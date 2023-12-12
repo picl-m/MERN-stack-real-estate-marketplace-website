@@ -7,6 +7,8 @@ import { createRouter } from "./routes/create.router";
 import mongoose, { MongooseError } from "mongoose";
 import cors from "cors";
 
+import { Estate } from "./models/estate.model";
+
 const app = express();
 const port = process.env.PORT ?? 5000;
 

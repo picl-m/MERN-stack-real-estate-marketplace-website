@@ -96,6 +96,6 @@ const estateSchema = new mongoose_1.default.Schema({
             }
         }
     },
-});
+}, { timestamps: true });
 const Estate = mongoose_1.default.model("Estate", estateSchema);
 exports.Estate = Estate;

@@ -6,52 +6,47 @@ import { Email, Phone } from "@mui/icons-material";
 
 import Layout from "../../components/Layout";
 
+import { getListing } from "../../api/estate/search";
+import { Estate } from "../../types/estate";
+
 export default function SearchResults() {
     const [currentSearchParams] = useSearchParams();
-    const [listing, setListing] = useState<any | undefined>();
+    const [listing, setListing] = useState<Estate | null | undefined>();
     const mobile = useMediaQuery("(max-width:600px)");
-
-    const getListing = async (id: string) => {
-        try {
-            const res = await fetch(process.env.REACT_APP_SERVER_URL + "/search/listing", {
-                method: "POST",
-                headers: { "Content-Type": "application/json"},
-                body: JSON.stringify({ id: id }),
-            });
-            const data = await res.json();
-            if (res.status === 200) {
-                setListing(data);
-            } else {
-                setListing(null);
-                console.log("Server error: " + data);
-            }
-        } catch (err) {
-            let message = "Unknown error";
-            if (err instanceof Error) message = err.message;
-            console.log("Error getting listing: " + message);
-        }
-    }
 
     useEffect(() => {
         const id = currentSearchParams.get("id");
-        if (id) getListing(id);
+        if (id) {
+            getListing(id).then(data => {
+                if (data) {
+                    setListing(data);
+                } else {
+                    setListing(null);
+                }
+            });
+        }
     }, [currentSearchParams])
 
-    const getSpecs = (listing: any) => {
-        let specs: Object[] = [];
+    const getSpecs = (listing: Estate) => {
+        let specs: { name: string, value: string }[]= [];
 
         specs.push({ name: "Type:", value: listing.type })
-        specs.push({ name: "Area:", value: listing.area + "m2" })
+        specs.push({
+            name: "Area:",
+            value: listing.area.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " m2"
+        })
 
         if (listing.extras && listing.extras.length) {
             specs.push({ name: "Extras:", value: listing.extras.join(", ") })
         }
         if (listing.floor) {
-            specs.push({ name: "Floor:", value: listing.floor })
+            specs.push({ name: "Floor:", value: listing.floor.toString() })
         }
         if (listing.building_type) {
             specs.push({ name: "Building type:", value: listing.building_type })
         }
+
+        specs.push({ name: "Last updated on:", value: listing.updatedAt.toString() })
 
         return specs;
     }
@@ -80,7 +75,7 @@ export default function SearchResults() {
                         }
                         </Box>
                         <Typography variant="h4" mt={2} gutterBottom>
-                            {listing.__t + " for " + listing.deal + ", " + listing.type + ", " + listing.area}
+                            {`${listing.__t} for ${listing.deal}, ${listing.type}, ${listing.area.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")}`}
                             m<sup>2</sup>
                         </Typography>
                         <Typography variant="h5" color="text.secondary">
@@ -97,7 +92,7 @@ export default function SearchResults() {
                         <TableContainer component={Paper}>
                             <Table aria-label="specifications table">
                                 <TableBody>
-                                    {getSpecs(listing).map((spec: any) => (
+                                    {getSpecs(listing).map((spec: { name: string, value: string }) => (
                                         <TableRow
                                             key={spec.name}
                                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

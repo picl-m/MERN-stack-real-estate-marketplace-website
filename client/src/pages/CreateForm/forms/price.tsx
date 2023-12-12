@@ -1,9 +1,9 @@
 import { TextField, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
-import { FormData } from "../index";
+import { Estate } from "../../../types/estate";
 
 interface PriceFormProps {
-    formData: FormData;
-    updateFormData: (data: Partial<FormData>) => void;
+  formData: Partial<Estate>;
+  updateFormData: (data: Partial<Estate>) => void;
 }
 
 export default function PriceForm(props: PriceFormProps) {

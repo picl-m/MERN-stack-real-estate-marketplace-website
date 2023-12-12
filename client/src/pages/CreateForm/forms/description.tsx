@@ -1,9 +1,9 @@
 import { TextField, Typography } from "@mui/material";
-import { FormData } from "../index";
+import { Estate } from "../../../types/estate";
 
 interface DescriptionFormProps{
-    formData: FormData;
-    updateFormData: (data: Partial<FormData>) => void;
+    formData: Partial<Estate>;
+    updateFormData: (data: Partial<Estate>) => void;
 }
 
 export default function DescriptionForm(props: DescriptionFormProps) {

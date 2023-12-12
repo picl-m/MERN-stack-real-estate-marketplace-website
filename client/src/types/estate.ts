@@ -1,4 +1,4 @@
-import { Region } from "./locations";
+import { Region, District } from "./locations";
 
 export type EstateType = "houses" | "apartments" | "land";
 export type DealType = "sale" | "rent";
@@ -26,7 +26,7 @@ export interface SearchParams {
     extras: HouseExtras[] | ApartmentExtras[];
     building_type: BuildingType[];
     region?: Region;
-    districts: string[];
+    districts: District[];
     min_price?: number;
     max_price?: number;
     min_area?: number;
@@ -35,6 +35,23 @@ export interface SearchParams {
     max_floor?: number;
 }
 
+export type EstateTypeName = "House" | "Apartment" | "Land";
+
 export interface Estate {
-    
+    _id: number;
+    __t: EstateTypeName;
+    updatedAt: Date;
+    deal: DealType;
+    type: HouseType | ApartmentType | LandType;
+    extras?: HouseExtras[] | ApartmentExtras[];
+    building_type?: BuildingType;
+    floor?: number;
+    price: number;
+    area: number;
+    region: Region;
+    district: District;
+    description: string;
+    full_name: string;
+    phone: string;
+    email: string;
 }

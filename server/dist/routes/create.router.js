@@ -19,7 +19,7 @@ exports.createRouter = router;
 const house_model_1 = require("../models/house.model");
 const apartment_model_1 = require("../models/apartment.model");
 const land_model_1 = require("../models/land.model");
-router.post("/house", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post("/houses", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const reqEstate = new house_model_1.HouseEstate(req.body);
     try {
         const result = yield reqEstate.save();
@@ -32,7 +32,7 @@ router.post("/house", (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.status(500).json("Error creating house: " + message);
     }
 }));
-router.post("/apartment", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post("/apartments", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const reqEstate = new apartment_model_1.ApartmentEstate(req.body);
     try {
         const result = yield reqEstate.save();

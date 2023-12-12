@@ -1,12 +1,12 @@
 import { TextField, Typography } from "@mui/material";
-import { FormData } from "../index";
 import MultiCheckbox from "../../../components/MultiCheckbox";
 import MultiRadio from "../../../components/MultiRadio";
+import { Estate, EstateType } from "../../../types/estate";
 
 interface CategoryFormProps {
-    formData: FormData;
-    updateFormData: (data: Partial<FormData>) => void;
-    estateType: "house"|"apartment"|"land";
+    formData: Partial<Estate>;
+    updateFormData: (data: Partial<Estate>) => void;
+    estateType: EstateType;
 }
 
 export default function CategoryForm(props: CategoryFormProps) {
@@ -22,7 +22,7 @@ export default function CategoryForm(props: CategoryFormProps) {
               props.updateFormData({ area: Number(value) });
           }}
         />
-        {props.estateType==="house"?
+        {props.estateType==="houses"?
             <>
                 <MultiRadio
                     title="Type"
@@ -33,11 +33,11 @@ export default function CategoryForm(props: CategoryFormProps) {
                 <MultiCheckbox
                     title="Extras"
                     options={["balcony", "parking", "garden", "basement", "garage", "wooden", "furnished"]}
-                    selected={props.formData.extras}
+                    selected={props.formData.extras || []}
                     update={(value) => props.updateFormData({ extras: value })}
                 />
             </>
-        :props.estateType==="apartment"?
+        :props.estateType==="apartments"?
             <>
                 <TextField
                     label="Floor"
@@ -57,7 +57,7 @@ export default function CategoryForm(props: CategoryFormProps) {
                 <MultiCheckbox
                     title="Extras"
                     options={["balcony", "parking", "garage", "lift", "furnished"]}
-                    selected={props.formData.extras}
+                    selected={props.formData.extras || []}
                     update={(value) => props.updateFormData({ extras: value })}
                 />
                 <MultiRadio

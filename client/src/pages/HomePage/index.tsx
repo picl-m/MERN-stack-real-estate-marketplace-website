@@ -1,40 +1,61 @@
 import React, { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
-import { Container, Typography, Box, Grid, Card, CardActionArea, CardContent, CardMedia, Stack, CircularProgress } from "@mui/material"
+import { Container, Typography, Box, Grid, Card, CardActionArea, CardContent, CardMedia, Stack, CircularProgress, useMediaQuery } from "@mui/material"
 
 import { Apartment, House, Landscape } from "@mui/icons-material";
 import Layout from "../../components/Layout";
 import Carousel from "react-material-ui-carousel";
 
-export default function HomePage() {
-    const [results, setResults] = useState<Object[][] | undefined>();
+import { getRecent } from "../../api/estate/search";
+import { Estate } from "../../types/estate";
 
-    const getResults = async () => {
-        try {
-            const res = await fetch(process.env.REACT_APP_SERVER_URL + "/search", {
-                method: "GET",
-                headers: { "Content-Type": "application/json"}
-            });
-            const data = await res.json();
-            if (res.status === 200) {
+export default function HomePage() {
+    const [results, setResults] = useState<Estate[] | undefined>();
+    const mobile = useMediaQuery("(max-width:800px)");
+
+    useEffect(() => {
+        getRecent().then(data => {
+            setResults(data);
+        });
+    }, [])
+
+    const getCarouselData = (): Estate[][] => {
+        if (results) {
+            if (!mobile) {
                 let newResults = [];
-                for (let i = 0; i < data.length; i += 3) {
-                    newResults.push([data[i], data[i+1], data[i+2]])
+                for (let i = 0; i < results.length; i += 3) {
+                    newResults.push([results[i], results[i+1], results[i+2]])
                 }
-                setResults(newResults);
+                return (newResults);
             } else {
-                console.log("Server error: " + data);
+                let newResults: Estate[][] = [];
+                results.forEach(result => {
+                    newResults.push([result]);
+                })
+                return (newResults);
             }
-        } catch (err) {
-            let message = "Unknown error";
-            if (err instanceof Error) message = err.message;
-            console.log("Error getting search results: " + message);
+        } else {
+            return ([]);
         }
     }
 
-    useEffect(() => {
-        getResults();
-    }, [])
+    const linkCards = [
+        {
+            title: "Apartments",
+            url: "/search/apartments",
+            icon: <Apartment fontSize="large"/>,
+        },
+        {
+            title: "Houses",
+            url: "/search/houses",
+            icon: <House fontSize="large"/>,
+        },
+        {
+            title: "Land",
+            url: "/search/land",
+            icon: <Landscape fontSize="large"/>,
+        },
+    ]
 
     return (
         <Layout>
@@ -47,42 +68,20 @@ export default function HomePage() {
                         Buy, rent or auction real estate in the Czech Republic!
                     </Typography>
                     <Grid container justifyContent="center" spacing={2} sx={{ mt: 2 }}>
-                        <Grid item width={{ xs: 115 ,sm: 150, lg: 220 }}>
-                            <Card>
-                                <CardActionArea component={RouterLink} to="/search/apartments">
-                                    <CardContent>
-                                        <Stack spacing={1} alignItems="center">
-                                            <Apartment fontSize="large"/>
-                                            <Typography>Apartments</Typography>
-                                        </Stack>
-                                    </CardContent>
-                                </CardActionArea>
-                            </Card>
-                        </Grid>
-                        <Grid item width={{ xs: 115 ,sm: 150, lg: 220 }}>
-                            <Card>
-                                <CardActionArea component={RouterLink} to="/search/houses">
-                                    <CardContent>
-                                        <Stack spacing={1} alignItems="center">
-                                            <House fontSize="large"/>
-                                            <Typography>Houses</Typography>
-                                        </Stack>
-                                    </CardContent>
-                                </CardActionArea>
-                            </Card>
-                        </Grid>
-                        <Grid item width={{ xs: 115 ,sm: 150, lg: 220 }}>
-                            <Card>
-                                <CardActionArea component={RouterLink} to="/search/land">
-                                    <CardContent>
-                                        <Stack spacing={1} alignItems="center">
-                                            <Landscape fontSize="large"/>
-                                            <Typography>Land</Typography>
-                                        </Stack>
-                                    </CardContent>
-                                </CardActionArea>
-                            </Card>
-                        </Grid>
+                        {linkCards.map(element => (
+                            <Grid item key={element.title} width={{ xs: 115 ,sm: 150, lg: 220 }}>
+                                <Card>
+                                    <CardActionArea component={RouterLink} to={element.url}>
+                                        <CardContent>
+                                            <Stack spacing={1} alignItems="center">
+                                                {element.icon}
+                                                <Typography>{element.title}</Typography>
+                                            </Stack>
+                                        </CardContent>
+                                    </CardActionArea>
+                                </Card>
+                            </Grid>
+                        ))}
                     </Grid>
                 </Container>
             </Box>
@@ -91,10 +90,10 @@ export default function HomePage() {
                     New offers:
                 </Typography>
                 {(results && results.length > 0)?
-                    <Carousel navButtonsAlwaysVisible animation="slide" duration={700}>
-                        {results.map((resultArray: Object[], i) => (
-                            <Stack direction="row" gap={2} key={i}>
-                                {resultArray.map((result: any) => (
+                    <Carousel navButtonsAlwaysVisible animation="slide">
+                        {getCarouselData().map((resultArray, i) => (
+                            <Stack direction="row" gap={2} key={i} justifyContent="center">
+                                {resultArray.map((result) => (
                                     <Card sx={{ width: 380 }} key={result._id}>
                                         <CardActionArea
                                             href={"/listing?id=" + result._id}

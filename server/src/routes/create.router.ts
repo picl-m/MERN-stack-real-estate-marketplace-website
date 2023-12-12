@@ -4,7 +4,7 @@ import { HouseEstate } from "../models/house.model";
 import { ApartmentEstate } from "../models/apartment.model";
 import { LandEstate } from "../models/land.model";
 
-router.post("/house", async (req: Request, res: Response) => {
+router.post("/houses", async (req: Request, res: Response) => {
     const reqEstate = new HouseEstate(req.body);
     try {
         const result = await reqEstate.save();
@@ -16,7 +16,7 @@ router.post("/house", async (req: Request, res: Response) => {
     }
 });
 
-router.post("/apartment", async (req: Request, res: Response) => {
+router.post("/apartments", async (req: Request, res: Response) => {
     const reqEstate = new ApartmentEstate(req.body);
     try {
         const result = await reqEstate.save();

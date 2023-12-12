@@ -2,8 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Alert, AlertTitle, Box, Button, CircularProgress, Container, MobileStepper, Paper, Typography } from "@mui/material";
 
-import locations from "../../assets/locations.json";
-
 import LocationForm from "./forms/location";
 import ContactForm from "./forms/contact";
 import PriceForm from "./forms/price";
@@ -11,25 +9,11 @@ import CategoryForm from "./forms/category";
 import DescriptionForm from "./forms/description";
 
 import Layout from "../../components/Layout";
-
-export interface FormData {
-  deal?: string;
-  type?: string;
-  extras: string[];
-  building_type?: string;
-  price?: number;
-  area?: number;
-  floor?: number;
-  description?: string;
-  full_name?: string;
-  phone?: string;
-  email?: string;
-  region?: keyof typeof locations;
-  district?: string;
-}
+import { createEstate } from "../../api/estate/create";
+import { Estate, EstateType } from "../../types/estate";
 
 interface CreateFormProps {
-  estateType: "house"|"apartment"|"land";
+  estateType: EstateType;
 }
 
 export default function CreateForm(props: CreateFormProps) {
@@ -37,16 +21,16 @@ export default function CreateForm(props: CreateFormProps) {
   const [errorMessage, setErrorMessage] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<Partial<Estate>>({
     deal: "sale",
     extras: []
   });
 
-  const updateFormData = (data: Partial<FormData>) => {
+  const updateFormData = (data: Partial<Estate>) => {
     setFormData({...formData, ...data});
   }
 
-  const validateForm = (v: FormData) => {
+  const validateForm = (v: Partial<Estate>) => {
     let isValid = true;
     let error = [];
     
@@ -82,23 +66,11 @@ export default function CreateForm(props: CreateFormProps) {
       console.log(formattedData);
 
       if (validateForm(formattedData)) {
-        try {
-          const res = await fetch(process.env.REACT_APP_SERVER_URL + "/create/" + props.estateType, {
-            method: "POST",
-            headers: { "Content-Type": "application/json"},
-            body: JSON.stringify(formattedData),
-          });
-          if (res.status === 201) {
+        createEstate(formattedData as Estate, props.estateType).then(success => {
+          if (success) {
             navigate("/");
-          } else {
-            const data = await res.json();
-            console.log("Server error: " + data);
           }
-        } catch (err) {
-          let message = "Unknown error";
-          if (err instanceof Error) message = err.message;
-          console.log("Error sending form: " + message);
-        }
+        })
       }
     }
     setLoading(false);
