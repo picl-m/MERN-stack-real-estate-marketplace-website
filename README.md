@@ -1,16 +1,20 @@
-# expressjs form
+# MERN stack real estate marketplace website
 
-Form that validates data and stores it in MongoDB.
+Real estate marketplace website with search filtering and a listing creation form.
+
+Live demo at: https://real-estate-marketplace-client.vercel.app/
 
 ## Specifications
 
-- Frontend: ReactJS, TypeScript
+- Frontend: ReactJS, TypeScript, MUI
 - Backend: ExpressJS, TypeScript, Mongoose
 - Database: MongoDB
 
 ## How to run:
 
 - Frontend:
+
+  .env file with the following values is needed: ```REACT_APP_SERVER_URL```.
   ```
   cd client
   npm i
