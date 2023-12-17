@@ -6,11 +6,11 @@ export const validateEstate = (v: Partial<Estate>, estateType: EstateType): [boo
     
     if(! v.region) {
       isValid = false;
-      error.push("Choose a region\n");
+      error.push("Missing region\n");
     }
     if(! v.district) {
       isValid = false;
-      error.push("Choose a district\n");
+      error.push("Missing district\n");
     }
     if(! v.full_name || ! /^(.+){2,} (.+){2,}$/.test(v.full_name)) {
       isValid = false;
@@ -34,17 +34,17 @@ export const validateEstate = (v: Partial<Estate>, estateType: EstateType): [boo
     }
     if(! v.type) {
       isValid = false;
-      error.push("Choose type of estate\n");
+      error.push("Missing type of estate\n");
     }
     if(! v.description) {
       isValid = false;
-      error.push("Add a description\n");
+      error.push("Missing description\n");
     }
 
     if(estateType === "apartments") {
       if(! v.building_type) {
         isValid = false;
-        error.push("Choose a building type\n");
+        error.push("Missing building type\n");
       }
       if(! v.floor || v.floor < 0) {
         isValid = false;
