@@ -1,56 +1,56 @@
-import { Estate, EstateType } from "../types/estate";
+import { Estate, EstateType } from "types/estate";
 
 export const validateEstate = (v: Partial<Estate>, estateType: EstateType): [boolean, string[]] => {
     let isValid = true;
-    let error = [];
+    let errorMessages = [];
     
     if(! v.region) {
       isValid = false;
-      error.push("Missing region\n");
+      errorMessages.push("Missing region\n");
     }
     if(! v.district) {
       isValid = false;
-      error.push("Missing district\n");
+      errorMessages.push("Missing district\n");
     }
     if(! v.full_name || ! /^(.+){2,} (.+){2,}$/.test(v.full_name)) {
       isValid = false;
-      error.push("Invalid name\n");
+      errorMessages.push("Invalid name\n");
     }
     if(! v.phone || ! /^\d{9}$/.test(v.phone)) {
       isValid = false;
-      error.push("Invalid phone number\n");
+      errorMessages.push("Invalid phone number\n");
     }
     if(! v.email || ! /^(.+)@(.+){2,}\.(.+){2,}$/.test(v.email)) {
       isValid = false;
-      error.push("Invalid email adress\n");
+      errorMessages.push("Invalid email adress\n");
     }
     if(! v.area || v.area < 0) {
       isValid = false;
-      error.push("Invalid estate area\n");
+      errorMessages.push("Invalid estate area\n");
     }
     if(! v.price || v.price < 0) {
       isValid = false;
-      error.push("Invalid estate price\n");
+      errorMessages.push("Invalid estate price\n");
     }
     if(! v.type) {
       isValid = false;
-      error.push("Missing type of estate\n");
+      errorMessages.push("Missing type of estate\n");
     }
     if(! v.description) {
       isValid = false;
-      error.push("Missing description\n");
+      errorMessages.push("Missing description\n");
     }
 
     if(estateType === "apartments") {
       if(! v.building_type) {
         isValid = false;
-        error.push("Missing building type\n");
+        errorMessages.push("Missing building type\n");
       }
       if(! v.floor || v.floor < 0) {
         isValid = false;
-        error.push("Invalid floor\n");
+        errorMessages.push("Invalid floor\n");
       }
     }
 
-    return [isValid, error];
+    return [isValid, errorMessages];
   }

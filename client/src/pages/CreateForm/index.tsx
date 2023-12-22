@@ -8,10 +8,11 @@ import PriceForm from "./forms/price";
 import CategoryForm from "./forms/category";
 import DescriptionForm from "./forms/description";
 
-import Layout from "../../components/Layout";
-import { createEstate } from "../../api/estate/create";
-import { Estate, EstateType } from "../../types/estate";
-import { validateEstate } from "../../utils/estateValidation";
+import Layout from "components/Layout";
+import { createEstate } from "api/estate/create";
+import { Estate, EstateType } from "types/estate";
+
+import { validateEstate } from "./estateValidation";
 
 interface CreateFormProps {
   estateType: EstateType;

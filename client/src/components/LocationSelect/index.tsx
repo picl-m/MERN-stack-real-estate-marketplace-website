@@ -1,13 +1,14 @@
 import React from "react";
 import { Autocomplete, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField } from "@mui/material"
-import locations from "../../assets/locations.json";
-import MultiCheckbox from "../MultiCheckbox";
+import { regions, Region, District } from "types/locations";
+import locations from "assets/locations.json";
+import MultiCheckbox from "components/MultiCheckbox";
 
 interface LocationSelectProps {
-    region: keyof typeof locations | undefined;
-    district: string | string[] | undefined;
-    updateRegion: (region: keyof typeof locations | undefined) => void;
-    updateDistrict: (district: string[]) => void;
+    region: Region | undefined;
+    district: District | District[] | undefined;
+    updateRegion: (region: Region | undefined) => void;
+    updateDistrict: (district: District[]) => void;
     checkbox?: boolean;
     label?: boolean;
 }
@@ -16,10 +17,11 @@ export default function LocationSelect(props: LocationSelectProps) {
     return (
         <FormControl>
             {props.label ? <FormLabel sx={{ mb: 2 }}>Location</FormLabel> : null}
+
             <Autocomplete
                 clearOnBlur
                 autoHighlight
-                options={Object.keys(locations)}
+                options={regions}
                 value={props.region || null}
                 renderInput={(params) => <TextField {...params} label="Region" />}
                 size="small"
@@ -27,28 +29,29 @@ export default function LocationSelect(props: LocationSelectProps) {
                     if (reason === "clear")
                         props.updateRegion(undefined)
                     if (value) {
-                        props.updateRegion(value as keyof typeof locations);
+                        props.updateRegion(value as Region);
                     }
                 }}
             />
-            {props.region?
-                (props.checkbox && props.district instanceof Array)?
+
+            {props.region ? (
+                (props.checkbox && props.district instanceof Array) ? (
                     <MultiCheckbox
                         options={locations[props.region]}
                         selected={props.district}
                         update={(value) => props.updateDistrict(value)}
                     />
-                :
+                ) : (
                     <RadioGroup
                         row 
                         value={props.district || ""}
                         sx={{ mt: 2 }}
-                        onChange={(_, value) => {
+                        onChange={(_, value: District) => {
                             if (value)
                                 props.updateDistrict([value]);
                         }}
                     >
-                        {locations[props.region].map((district) => (
+                        {locations[props.region].map((district: District) => (
                             <FormControlLabel
                                 key={district}
                                 value={district}
@@ -57,7 +60,8 @@ export default function LocationSelect(props: LocationSelectProps) {
                             />
                         ))}
                     </RadioGroup>
-            :null}
+                )
+            ) : null}
         </FormControl>
     )
 }

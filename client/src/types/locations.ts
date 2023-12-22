@@ -1,8 +1,9 @@
-import locations from "../assets/locations.json";
+import locations from "assets/locations.json";
 
+export const regions = Object.keys(locations);
 export type Region = keyof typeof locations;
 
-let districts: string[] = [];
+export let districts: string[] = [];
 Object.keys(locations).forEach(region => {
     locations[region as Region].forEach(district => {
         districts.push(district);

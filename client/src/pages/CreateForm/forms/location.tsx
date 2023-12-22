@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
-import LocationSelect from "../../../components/LocationSelect";
-import { Estate } from "../../../types/estate";
+import LocationSelect from "components/LocationSelect";
+import { Estate } from "types/estate";
 
 interface LocationFormProps {
   formData: Partial<Estate>;

@@ -1,17 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./index.css";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 
-import HomePage from "./pages/HomePage/index";
-import Search from "./pages/Search/index";
-import SearchResults from "./pages/SearchResults/index";
-import Error from "./pages/Error/index";
-import Create from "./pages/Create/index";
-import CreateForm from "./pages/CreateForm/index";
-import Listing from "./pages/Listing/index";
+import HomePage from "pages/HomePage/index";
+import Search from "pages/Search/index";
+import SearchResults from "pages/SearchResults/index";
+import Error from "pages/Error/index";
+import Create from "pages/Create/index";
+import CreateForm from "pages/CreateForm/index";
+import Listing from "pages/Listing/index";
 
+// MUI theme configuration
 const theme = createTheme({
   palette: {
     mode: "dark",
@@ -21,10 +21,11 @@ const theme = createTheme({
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <CssBaseline />
+      <CssBaseline/>
       <BrowserRouter>
         <Routes>
           <Route path="" element={<HomePage />} />

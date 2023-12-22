@@ -57,9 +57,11 @@ const createQuery = (queryParams) => {
 };
 router.post("/houses", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const offset = req.body.count * req.body.page;
-        const data = yield house_model_1.HouseEstate.find(createQuery(req.body)).skip(offset).limit(req.body.count).exec();
-        return res.status(200).json(data);
+        const limit = req.body.limit;
+        const skip = (req.body.page - 1) * limit;
+        const data = yield house_model_1.HouseEstate.find(createQuery(req.body.filter)).skip(skip).limit(limit).exec();
+        const count = yield house_model_1.HouseEstate.count(createQuery(req.body.filter)).exec();
+        return res.status(200).json({ data: data, count: Math.ceil(count / limit) });
     }
     catch (err) {
         let message = "Unknown error";
@@ -70,8 +72,11 @@ router.post("/houses", (req, res) => __awaiter(void 0, void 0, void 0, function*
 }));
 router.post("/apartments", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield apartment_model_1.ApartmentEstate.find(createQuery(req.body)).exec();
-        return res.status(200).json(data);
+        const limit = req.body.limit;
+        const skip = (req.body.page - 1) * limit;
+        const data = yield apartment_model_1.ApartmentEstate.find(createQuery(req.body.filter)).skip(skip).limit(limit).exec();
+        const count = yield apartment_model_1.ApartmentEstate.count(createQuery(req.body.filter)).exec();
+        return res.status(200).json({ data: data, count: Math.ceil(count / limit) });
     }
     catch (err) {
         let message = "Unknown error";
@@ -82,8 +87,11 @@ router.post("/apartments", (req, res) => __awaiter(void 0, void 0, void 0, funct
 }));
 router.post("/land", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield land_model_1.LandEstate.find(createQuery(req.body)).exec();
-        return res.status(200).json(data);
+        const limit = req.body.limit;
+        const skip = (req.body.page - 1) * limit;
+        const data = yield land_model_1.LandEstate.find(createQuery(req.body.filter)).skip(skip).limit(limit).exec();
+        const count = yield land_model_1.LandEstate.count(createQuery(req.body.filter)).exec();
+        return res.status(200).json({ data: data, count: Math.ceil(count / limit) });
     }
     catch (err) {
         let message = "Unknown error";

@@ -1,4 +1,4 @@
-import { Estate, EstateType } from "../../types/estate";
+import { Estate, EstateType } from "types/estate";
 
 export async function createEstate(data: Estate ,estateType: EstateType) {
     try {

@@ -44,9 +44,12 @@ const createQuery = (queryParams: any) => {
 
 router.post("/houses", async (req: Request, res: Response) => {
     try {
-        const offset = req.body.count * req.body.page;
-        const data = await HouseEstate.find(createQuery(req.body)).skip(offset).limit(req.body.count).exec();
-        return res.status(200).json(data);
+        const limit = req.body.limit;
+        const skip = (req.body.page - 1) * limit;
+        
+        const data = await HouseEstate.find(createQuery(req.body.filter)).skip(skip).limit(limit).exec();
+        const count = await HouseEstate.count(createQuery(req.body.filter)).exec();
+        return res.status(200).json({ data: data, count: Math.ceil(count/limit) });
     } catch (err) {
         let message = "Unknown error";
         if (err instanceof Error) message = err.message;
@@ -56,8 +59,12 @@ router.post("/houses", async (req: Request, res: Response) => {
 
 router.post("/apartments", async (req: Request, res: Response) => {
     try {
-        const data = await ApartmentEstate.find(createQuery(req.body)).exec();
-        return res.status(200).json(data);
+        const limit = req.body.limit;
+        const skip = (req.body.page - 1) * limit;
+        
+        const data = await ApartmentEstate.find(createQuery(req.body.filter)).skip(skip).limit(limit).exec();
+        const count = await ApartmentEstate.count(createQuery(req.body.filter)).exec();
+        return res.status(200).json({ data: data, count: Math.ceil(count/limit) });
     } catch (err) {
         let message = "Unknown error";
         if (err instanceof Error) message = err.message;
@@ -67,8 +74,12 @@ router.post("/apartments", async (req: Request, res: Response) => {
 
 router.post("/land", async (req: Request, res: Response) => {
     try {
-        const data = await LandEstate.find(createQuery(req.body)).exec();
-        return res.status(200).json(data);
+        const limit = req.body.limit;
+        const skip = (req.body.page - 1) * limit;
+        
+        const data = await LandEstate.find(createQuery(req.body.filter)).skip(skip).limit(limit).exec();
+        const count = await LandEstate.count(createQuery(req.body.filter)).exec();
+        return res.status(200).json({ data: data, count: Math.ceil(count/limit) });
     } catch (err) {
         let message = "Unknown error";
         if (err instanceof Error) message = err.message;

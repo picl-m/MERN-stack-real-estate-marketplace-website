@@ -1,7 +1,7 @@
 import { TextField, Typography } from "@mui/material";
-import MultiCheckbox from "../../../components/MultiCheckbox";
-import MultiRadio from "../../../components/MultiRadio";
-import { Estate, EstateType } from "../../../types/estate";
+import MultiCheckbox from "components/MultiCheckbox";
+import MultiRadio from "components/MultiRadio";
+import { Estate, EstateType } from "types/estate";
 
 interface CategoryFormProps {
     formData: Partial<Estate>;

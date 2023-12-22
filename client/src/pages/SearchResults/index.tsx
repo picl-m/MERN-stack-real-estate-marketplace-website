@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Box, Card, CardActionArea, CardContent, CardMedia, CircularProgress, Container, Typography } from "@mui/material";
+import { Box, Card, CardActionArea, CardContent, CardMedia, CircularProgress, Container, Pagination, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useSearchParams } from "react-router-dom";
 
-import Layout from "../../components/Layout";
-
-import { Estate, EstateType } from "../../types/estate";
-
-import { getResults } from "../../api/estate/search";
+import Layout from "components/Layout";
+import { Estate, EstateType } from "types/estate";
+import { getResults } from "api/estate/search";
 
 interface HomePageProps {
     estateType: EstateType;
@@ -16,6 +14,8 @@ interface HomePageProps {
 export default function SearchResults(props: HomePageProps) {
     const [currentSearchParams] = useSearchParams();
     const [results, setResults] = useState<Estate[] | undefined>();
+    const [page, setPage] = useState(1);
+    const [count, setCount] = useState(1);
 
     const estateString = 
         props.estateType.charAt(0).toUpperCase()
@@ -33,11 +33,13 @@ export default function SearchResults(props: HomePageProps) {
                 params[key] = value;
             }
         })
-        getResults(params, props.estateType).then(data => {
-            setResults(data);
+        setResults(undefined);
+        getResults(params, props.estateType, page, 21).then(res => {
+            setResults(res.data);
+            setCount(res.count);
         });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [page])
 
     return (
         <Layout>
@@ -81,6 +83,14 @@ export default function SearchResults(props: HomePageProps) {
                         <CircularProgress/>
                     </Box>
                 }
+                <Box pt={4} display="flex" justifyContent="center">
+                    <Pagination
+                        size="large"
+                        count={count}
+                        page={page}
+                        onChange={(_, value) => setPage(value)}
+                    />
+                </Box>
             </Container>
         </Layout>
     )

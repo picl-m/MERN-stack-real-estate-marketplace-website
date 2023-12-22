@@ -1,4 +1,4 @@
-import { Estate, EstateType } from "../../types/estate";
+import { Estate, EstateType } from "types/estate";
 
 export async function getRecent() {
     try {
@@ -19,12 +19,16 @@ export async function getRecent() {
     }
 }
 
-export async function getResults(params: Estate, estateType: EstateType) {
+export async function getResults(params: Estate, estateType: EstateType, page: number, limit: number) {
     try {
         const res = await fetch(process.env.REACT_APP_SERVER_URL + "/search/" + estateType, {
             method: "POST",
             headers: { "Content-Type": "application/json"},
-            body: JSON.stringify(params),
+            body: JSON.stringify({
+                filter: params,
+                page: page,
+                limit: limit
+            }),
         });
         const data = await res.json();
         if (res.status === 200) {

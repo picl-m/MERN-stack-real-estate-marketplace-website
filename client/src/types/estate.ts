@@ -1,4 +1,4 @@
-import { Region, District } from "./locations";
+import { Region, District } from "types/locations";
 
 export type EstateType = "houses" | "apartments" | "land";
 export type DealType = "sale" | "rent";

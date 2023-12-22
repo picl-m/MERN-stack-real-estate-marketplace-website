@@ -1,11 +1,11 @@
 import React from "react";
 import { Container } from "@mui/material";
 
-import MultiCheckbox from "../../../components/MultiCheckbox";
-import NumberRange from "../../../components/NumberRange";
-import LocationSelect from "../../../components/LocationSelect";
+import MultiCheckbox from "components/MultiCheckbox";
+import NumberRange from "components/NumberRange";
+import LocationSelect from "components/LocationSelect";
 
-import { SearchParams, apartmentTypes, apartmentExtras, buildingTypes } from "../../../types/estate";
+import { SearchParams, apartmentTypes, apartmentExtras, buildingTypes } from "types/estate";
 
 interface SearchFormProps {
     searchParams: SearchParams;

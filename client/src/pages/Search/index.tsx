@@ -6,9 +6,9 @@ import { KeyboardArrowDown } from "@mui/icons-material";
 import ApartmentsForm from "./forms/apartments";
 import HousesForm from "./forms/houses";
 import LandForm from "./forms/land";
-import Layout from "../../components/Layout";
 
-import { EstateType, DealType, SearchParams } from "../../types/estate";
+import Layout from "components/Layout";
+import { EstateType, DealType, SearchParams } from "types/estate";
 
 interface SearchProps {
     estateType: EstateType;

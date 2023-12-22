@@ -1,5 +1,5 @@
 import { TextField, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
-import { Estate } from "../../../types/estate";
+import { Estate } from "types/estate";
 
 interface PriceFormProps {
   formData: Partial<Estate>;

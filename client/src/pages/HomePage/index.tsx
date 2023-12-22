@@ -3,11 +3,11 @@ import { Link as RouterLink } from "react-router-dom";
 import { Container, Typography, Box, Grid, Card, CardActionArea, CardContent, CardMedia, Stack, CircularProgress, useMediaQuery } from "@mui/material"
 
 import { Apartment, House, Landscape } from "@mui/icons-material";
-import Layout from "../../components/Layout";
+import Layout from "components/Layout";
 import Carousel from "react-material-ui-carousel";
 
-import { getRecent } from "../../api/estate/search";
-import { Estate } from "../../types/estate";
+import { getRecent } from "api/estate/search";
+import { Estate } from "types/estate";
 
 export default function HomePage() {
     const [results, setResults] = useState<Estate[] | undefined>();

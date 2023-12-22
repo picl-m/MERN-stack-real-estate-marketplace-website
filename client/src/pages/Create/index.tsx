@@ -1,5 +1,5 @@
 import { Card, CardActionArea, CardContent, Container, Grid, Stack, Typography } from "@mui/material";
-import Layout from "../../components/Layout";
+import Layout from "components/Layout";
 import { Apartment, House, Landscape } from "@mui/icons-material";
 import { Link as RouterLink } from "react-router-dom";
 

@@ -1,5 +1,5 @@
 import { TextField, Typography } from "@mui/material";
-import { Estate } from "../../../types/estate";
+import { Estate } from "types/estate";
 
 interface ContactFormProps {
     formData: Partial<Estate>;

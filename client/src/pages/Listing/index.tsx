@@ -4,10 +4,10 @@ import { useSearchParams } from "react-router-dom";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Email, Phone } from "@mui/icons-material";
 
-import Layout from "../../components/Layout";
+import Layout from "components/Layout";
 
-import { getListing } from "../../api/estate/search";
-import { Estate } from "../../types/estate";
+import { getListing } from "api/estate/search";
+import { Estate } from "types/estate";
 
 export default function SearchResults() {
     const [currentSearchParams] = useSearchParams();
