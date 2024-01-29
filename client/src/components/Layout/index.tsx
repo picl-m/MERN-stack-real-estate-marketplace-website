@@ -5,17 +5,17 @@ import NavBar from "components/NavBar";
 import Footer from "components/Footer";
 
 interface LayoutProps {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }
 
 export default function Layout(props: LayoutProps) {
-    return (
-        <Box display="flex" flexDirection="column" minHeight="100vh">
-            <NavBar/>
-            <Toolbar/>
-            {props.children}
-            <Box flexGrow={1}/>
-            <Footer/>
-        </Box>
-    )
+  return (
+    <Box display="flex" flexDirection="column" minHeight="100vh">
+      <NavBar />
+      <Toolbar />
+      {props.children}
+      <Box flexGrow={1} />
+      <Footer />
+    </Box>
+  );
 }

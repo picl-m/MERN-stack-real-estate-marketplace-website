@@ -1,12 +1,14 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
 var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 require("dotenv").config();
 if (process.env.DATABASE_URL == undefined)
-    throw new Error("DATABASE_URL is not set");
+  throw new Error("DATABASE_URL is not set");
 const express_1 = __importDefault(require("express"));
 const search_router_1 = require("./routes/search.router");
 const create_router_1 = require("./routes/create.router");
@@ -22,4 +24,6 @@ app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 app.use("/search", search_router_1.searchRouter);
 app.use("/create", create_router_1.createRouter);
-app.listen(port, () => { console.log("Server started on port " + port); });
+app.listen(port, () => {
+  console.log("Server started on port " + port);
+});

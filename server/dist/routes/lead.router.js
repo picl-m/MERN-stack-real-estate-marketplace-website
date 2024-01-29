@@ -1,44 +1,70 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+var __awaiter =
+  (this && this.__awaiter) ||
+  function (thisArg, _arguments, P, generator) {
+    function adopt(value) {
+      return value instanceof P
+        ? value
+        : new P(function (resolve) {
+            resolve(value);
+          });
+    }
     return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
+      function fulfilled(value) {
+        try {
+          step(generator.next(value));
+        } catch (e) {
+          reject(e);
+        }
+      }
+      function rejected(value) {
+        try {
+          step(generator["throw"](value));
+        } catch (e) {
+          reject(e);
+        }
+      }
+      function step(result) {
+        result.done
+          ? resolve(result.value)
+          : adopt(result.value).then(fulfilled, rejected);
+      }
+      step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
+  };
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.leadRouter = void 0;
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 exports.leadRouter = router;
 const lead_model_1 = require("../models/lead.model");
-router.get("/leads", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/leads", (req, res) =>
+  __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const data = yield lead_model_1.Lead.find();
-        return res.status(200).send(data);
+      const data = yield lead_model_1.Lead.find();
+      return res.status(200).send(data);
+    } catch (err) {
+      let message = "Unknown error";
+      if (err instanceof Error) message = err.message;
+      res.status(500).send("Error getting leads: " + message);
     }
-    catch (err) {
-        let message = "Unknown error";
-        if (err instanceof Error)
-            message = err.message;
-        res.status(500).send("Error getting leads: " + message);
-    }
-}));
-router.post("/lead", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+  }),
+);
+router.post("/lead", (req, res) =>
+  __awaiter(void 0, void 0, void 0, function* () {
     const reqLead = new lead_model_1.Lead(req.body);
     try {
-        const result = yield reqLead.save();
-        res.status(201).send(result);
+      const result = yield reqLead.save();
+      res.status(201).send(result);
+    } catch (err) {
+      let message = "Unknown error";
+      if (err instanceof Error) message = err.message;
+      res.status(500).send("Error creating lead: " + message);
     }
-    catch (err) {
-        let message = "Unknown error";
-        if (err instanceof Error)
-            message = err.message;
-        res.status(500).send("Error creating lead: " + message);
-    }
-}));
+  }),
+);
