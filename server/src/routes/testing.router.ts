@@ -19,14 +19,4 @@ router.post("/reset-database", async (req: Request, res: Response) => {
   }
 });
 
-router.get("/", async (req: Request, res: Response) => {
-  try {
-    res.status(200).json("HIIIIIIIIIII");
-  } catch (err) {
-    let message = "Unknown error";
-    if (err instanceof Error) message = err.message;
-    res.status(500).json("Error resetting database: " + message);
-  }
-});
-
 export { router as testingRouter };
