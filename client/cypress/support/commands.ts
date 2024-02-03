@@ -49,6 +49,7 @@ declare global {
         dataTestPrefixAttribute: string,
         args?: any,
       ): Chainable<JQuery<HTMLElement>>;
+      resetDatabase(): Chainable;
     }
   }
 }
@@ -59,4 +60,8 @@ Cypress.Commands.add("getBySel", (selector, ...args) => {
 
 Cypress.Commands.add("getBySelLike", (selector, ...args) => {
   return cy.get(`[data-test*=${selector}]`, ...args);
+});
+
+Cypress.Commands.add("resetDatabase", () => {
+  cy.request("POST", Cypress.env("server_url") + "/testing/reset-database");
 });

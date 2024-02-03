@@ -109,7 +109,7 @@ export default function HomePage() {
         <Typography variant="h4" gutterBottom>
           New offers:
         </Typography>
-        {results && results.length > 0 ? (
+        {results && results.length >= 3 ? (
           <Carousel navButtonsAlwaysVisible animation="slide">
             {getCarouselData().map((resultArray, i) => (
               <Stack direction="row" gap={2} key={i} justifyContent="center">

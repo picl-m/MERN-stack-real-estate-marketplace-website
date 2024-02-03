@@ -1,5 +1,6 @@
-describe("HomePage test", () => {
+describe("Search real estate test", () => {
   beforeEach(() => {
+    cy.resetDatabase();
     cy.visit("/");
   });
   it("can search real estate", () => {

@@ -1,103 +1,103 @@
 {
-  "Hlavní město Praha": [
-    "Praha 1",
-    "Praha 2",
-    "Praha 3",
-    "Praha 4",
-    "Praha 5",
-    "Praha 6",
-    "Praha 7",
-    "Praha 8",
-    "Praha 9",
-    "Praha 10",
-    "Praha 11",
-    "Praha 12",
-    "Praha 13",
-    "Praha 14",
-    "Praha 15",
-    "Praha 16",
-    "Praha 17",
-    "Praha 18",
-    "Praha 19",
-    "Praha 20",
-    "Praha 21",
-    "Praha 22"
-  ],
-  "Jihomoravský kraj": [
-    "Blansko",
-    "Brno-město",
-    "Brno-venkov",
-    "Břeclav",
-    "Hodonín",
-    "Vyškov",
-    "Znojmo"
-  ],
-  "Jihočeský kraj": [
-    "České Budějovice",
-    "Český Krumlov",
-    "Jindřichův Hradec",
-    "Písek",
-    "Prachatice",
-    "Strakonice",
-    "Tábor"
-  ],
-  "Karlovarský kraj": ["Cheb", "Karlovy Vary", "Sokolov"],
-  "Kraj Vysočina": [
-    "Havlíčkův Brod",
-    "Jihlava",
-    "Pelhřimov",
-    "Třebíč",
-    "Žďár nad Sázavou"
-  ],
-  "Královéhradecký kraj": [
-    "Hradec Králové",
-    "Jičín",
-    "Náchod",
-    "Rychnov nad Kněžnou",
-    "Trutnov"
-  ],
-  "Liberecký kraj": ["Česká Lípa", "Jablonec nad Nisou", "Liberec", "Semily"],
-  "Moravskoslezský kraj": [
-    "Bruntál",
-    "Frýdek-Místek",
-    "Karviná",
-    "Nový Jičín",
-    "Opava",
-    "Ostrava-město"
-  ],
-  "Olomoucký kraj": ["Jeseník", "Olomouc", "Prostějov", "Přerov", "Šumperk"],
-  "Pardubický kraj": ["Chrudim", "Pardubice", "Svitavy", "Ústí nad Orlicí"],
-  "Plzeňský kraj": [
-    "Domažlice",
-    "Klatovy",
-    "Plzeň-jih",
-    "Plzeň-město",
-    "Plzeň-sever",
-    "Rokycany",
-    "Tachov"
-  ],
-  "Středočeský kraj": [
-    "Benešov",
-    "Beroun",
-    "Kladno",
-    "Kolín",
-    "Kutná Hora",
-    "Mělník",
-    "Mladá Boleslav",
-    "Nymburk",
-    "Praha-východ",
-    "Praha-západ",
-    "Příbram",
-    "Rakovník"
-  ],
-  "Zlínský kraj": ["Kroměříž", "Uherské Hradiště", "Vsetín", "Zlín"],
-  "Ústecký kraj": [
-    "Chomutov",
-    "Děčín",
-    "Litoměřice",
-    "Louny",
-    "Most",
-    "Teplice",
-    "Ústí nad Labem"
-  ]
+    "Hlavní město Praha": [
+        "Praha 1",
+        "Praha 2",
+        "Praha 3",
+        "Praha 4",
+        "Praha 5",
+        "Praha 6",
+        "Praha 7",
+        "Praha 8",
+        "Praha 9",
+        "Praha 10",
+        "Praha 11",
+        "Praha 12",
+        "Praha 13",
+        "Praha 14",
+        "Praha 15",
+        "Praha 16",
+        "Praha 17",
+        "Praha 18",
+        "Praha 19",
+        "Praha 20",
+        "Praha 21",
+        "Praha 22"
+    ],
+    "Jihomoravský kraj": [
+        "Blansko",
+        "Brno-město",
+        "Brno-venkov",
+        "Břeclav",
+        "Hodonín",
+        "Vyškov",
+        "Znojmo"
+    ],
+    "Jihočeský kraj": [
+        "České Budějovice",
+        "Český Krumlov",
+        "Jindřichův Hradec",
+        "Písek",
+        "Prachatice",
+        "Strakonice",
+        "Tábor"
+    ],
+    "Karlovarský kraj": ["Cheb", "Karlovy Vary", "Sokolov"],
+    "Kraj Vysočina": [
+        "Havlíčkův Brod",
+        "Jihlava",
+        "Pelhřimov",
+        "Třebíč",
+        "Žďár nad Sázavou"
+    ],
+    "Královéhradecký kraj": [
+        "Hradec Králové",
+        "Jičín",
+        "Náchod",
+        "Rychnov nad Kněžnou",
+        "Trutnov"
+    ],
+    "Liberecký kraj": ["Česká Lípa", "Jablonec nad Nisou", "Liberec", "Semily"],
+    "Moravskoslezský kraj": [
+        "Bruntál",
+        "Frýdek-Místek",
+        "Karviná",
+        "Nový Jičín",
+        "Opava",
+        "Ostrava-město"
+    ],
+    "Olomoucký kraj": ["Jeseník", "Olomouc", "Prostějov", "Přerov", "Šumperk"],
+    "Pardubický kraj": ["Chrudim", "Pardubice", "Svitavy", "Ústí nad Orlicí"],
+    "Plzeňský kraj": [
+        "Domažlice",
+        "Klatovy",
+        "Plzeň-jih",
+        "Plzeň-město",
+        "Plzeň-sever",
+        "Rokycany",
+        "Tachov"
+    ],
+    "Středočeský kraj": [
+        "Benešov",
+        "Beroun",
+        "Kladno",
+        "Kolín",
+        "Kutná Hora",
+        "Mělník",
+        "Mladá Boleslav",
+        "Nymburk",
+        "Praha-východ",
+        "Praha-západ",
+        "Příbram",
+        "Rakovník"
+    ],
+    "Zlínský kraj": ["Kroměříž", "Uherské Hradiště", "Vsetín", "Zlín"],
+    "Ústecký kraj": [
+        "Chomutov",
+        "Děčín",
+        "Litoměřice",
+        "Louny",
+        "Most",
+        "Teplice",
+        "Ústí nad Labem"
+    ]
 }
