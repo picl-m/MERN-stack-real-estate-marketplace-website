@@ -14,16 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.testingRouter = void 0;
 const express_1 = __importDefault(require("express"));
-const mongoose_1 = __importDefault(require("mongoose"));
+const testingUtils_1 = require("../utils/testingUtils");
 const router = express_1.default.Router();
 exports.testingRouter = router;
 router.post("/reset-database", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const modelNames = mongoose_1.default.modelNames();
-        yield Promise.all(modelNames.map((modelName) => __awaiter(void 0, void 0, void 0, function* () {
-            const model = mongoose_1.default.model(modelName);
-            yield model.deleteMany({});
-        })));
+        yield (0, testingUtils_1.cleanDatabase)();
+        yield (0, testingUtils_1.seedDatabase)();
         res.status(200).json("Database reset was successful.");
     }
     catch (err) {
@@ -33,9 +30,10 @@ router.post("/reset-database", (req, res) => __awaiter(void 0, void 0, void 0, f
         res.status(500).json("Error resetting database: " + message);
     }
 }));
-router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post("/clean-database", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.status(200).json("HIIIIIIIIIII");
+        yield (0, testingUtils_1.cleanDatabase)();
+        res.status(200).json("Database reset was successful.");
     }
     catch (err) {
         let message = "Unknown error";

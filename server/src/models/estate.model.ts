@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-import locations from "./locations.json";
+import locations from "../utils/locations.json";
 const regions = Object.keys(locations);
 let districts: Array<string> = [];
 

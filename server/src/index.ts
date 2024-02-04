@@ -25,11 +25,15 @@ if (!database_uri) {
 mongoose.connect(database_uri);
 const db = mongoose.connection;
 
-db.on("error", (error: MongooseError) => console.log(error));
+db.on("error", (error: MongooseError) => {
+  console.error(error);
+  process.exit(1);
+});
 db.once("open", () => console.log("Connected to database"));
 
 app.use(express.json());
 app.use(cors());
+
 app.use("/search", searchRouter);
 app.use("/create", createRouter);
 

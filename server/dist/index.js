@@ -23,7 +23,10 @@ if (!database_uri) {
 }
 mongoose_1.default.connect(database_uri);
 const db = mongoose_1.default.connection;
-db.on("error", (error) => console.log(error));
+db.on("error", (error) => {
+    console.error(error);
+    process.exit(1);
+});
 db.once("open", () => console.log("Connected to database"));
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
